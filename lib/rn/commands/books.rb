@@ -19,15 +19,16 @@ module RN
         def call(name:, **)
           #warn "TODO: Implementar creación del cuaderno de notas con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
           #puts "crea .... fin"+DirHome.home
-        if !(name =~/\W/) then
-          puts "nombre acceptado"
-          name = name.downcase
-          result=FileUtils.mkdir_p(DirHome.home+"/"+name) unless File.file?(FileUtils.pwd)
-          #File.new(DirHome.home+"/"+name+".rn", "a")
-          puts result
-        else
-          puts "lo sentimos el nombre no cumple con el formato establecido"
-        end
+          puts "Recuerde que el nombre no debe contener caracteres especiales, espacios, y puntuaciones"
+          puts name
+          if (!!(name =~/[\w]/) && !(DirHome.exists_dir?(name))) then
+            name = name.downcase
+            result=FileUtils.mkdir_p(DirHome.home+"/"+name) unless File.file?(FileUtils.pwd)
+            #File.new(DirHome.home+"/"+name+".rn", "a")
+            puts "SUCESS: Aceptado y creado"
+          else
+            puts "WRONG: Lo sentimos el nombre no cumple con el formato establecido o el directorio existe"
+          end
 
         end
       end
@@ -47,6 +48,18 @@ module RN
         def call(name: nil, **options)
           #global = options[:global]
           #warn "TODO: Implementar borrado del cuaderno de notas con nombre '#{name}' (global=#{global}).\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          DirHome.before
+          name.downcase
+          if DirHome.exists_dir?(name) then
+            if name=="global" then
+              FileUtils.rm_rf(Dir.glob(DirHome.path(name+"/*")))
+            else 
+              FileUtils.rm_rf(Dir.glob(DirHome.path(name)))
+            end
+            puts "SUCESS: eliminacion exitosa"
+          else
+            puts "WRONG: upps! no se encontro el archivo"
+          end
         end
       end
 
@@ -60,11 +73,15 @@ module RN
         def call(*)
           #warn "TODO: Implementar listado de los cuadernos de notas.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
           puts "Mis carpetas:"
-          puts DirHome.list
+         ## puts DirHome.list
+          DirHome.list.each do |num|
+            puts num
+        end
         end
       end
 
       class Rename < Dry::CLI::Command
+        include ModuleEnum
         desc 'Rename a book'
 
         argument :old_name, required: true, desc: 'Current name of the book'
@@ -77,7 +94,23 @@ module RN
         ]
 
         def call(old_name:, new_name:, **)
-          warn "TODO: Implementar renombrado del cuaderno de notas con nombre '#{old_name}' para que pase a llamarse '#{new_name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          DirHome.before
+          #warn "TODO: Implementar renombrado del cuaderno de notas con nombre '#{old_name}' para que pase a llamarse '#{new_name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+        
+          if DirHome.exists_dir?(old_name) && old_name!=ModuleEnum::GLOBAL && new_name!=ModuleEnum::GLOBAL && !DirHome.exists_dir?(new_name)  then
+            begin 
+              File.rename(DirHome.path(old_name), DirHome.path(new_name)) 
+            rescue Exception => e 
+              # the exception your way
+              puts "Exeption: la operacion fue interumpida"
+            end
+            puts "SUCESS: Rename a book"
+          else
+            puts "--WRONG:"
+            puts "-GLOBAL no se puede renombrar"
+            puts "-No puede haber nombres repetidos"
+          end
+
         end
       end
     end

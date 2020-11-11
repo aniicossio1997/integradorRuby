@@ -3,7 +3,9 @@ module RN
     module Notes
       class Create < Dry::CLI::Command
         desc 'Create a note'
-
+        include ModuleEnum
+        include DirHome
+        include ModuleFile
         argument :title, required: true, desc: 'Title of the note'
         option :book, type: :string, desc: 'Book'
 
@@ -15,13 +17,18 @@ module RN
 
         def call(title:, **options)
           book = options[:book]
-          warn "TODO: Implementar creación de la nota con título '#{title}' (en el libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          if !(title =~/\W/) then
-            puts "nombre acceptado"
-            title = title.downcase
-            File.new(DirHome.home+"/"+title+".rn", "a")
+          title = title.downcase
+          #puts book.nil?
+          #warn "TODO: Implementar creación de la nota con título '#{title}' (en el libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          if !(title =~/\W/) && !(File.file?(ModuleEnum::PATH_GLOBAL+title+".rn")) then
+            #puts ModuleEnum::PATH_GLOBAL
+            out_file=File.new(ModuleEnum::PATH_GLOBAL+title+".rn", "a")
+
+            out_file.puts(title)
+            out_file.close
           else
             puts "lo sentimos el nombre no cumple con el formato establecido"
+            puts "el archivo ya existe"
           end
         end
       end
