@@ -16,6 +16,13 @@ module RN
         def call(title:, **options)
           book = options[:book]
           warn "TODO: Implementar creación de la nota con título '#{title}' (en el libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          if !(title =~/\W/) then
+            puts "nombre acceptado"
+            title = title.downcase
+            File.new(DirHome.home+"/"+title+".rn", "a")
+          else
+            puts "lo sentimos el nombre no cumple con el formato establecido"
+          end
         end
       end
 

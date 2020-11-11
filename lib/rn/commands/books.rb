@@ -1,18 +1,34 @@
+#require 'dry/cli/utils/files'
 module RN
   module Commands
     module Books
       class Create < Dry::CLI::Command
+        include DirHome
         desc 'Create a book'
+        
 
         argument :name, required: true, desc: 'Name of the book'
 
         example [
-          '"My book" # Creates a new book named "My book"',
-          'Memoires  # Creates a new book named "Memoires"'
+          #'"My book" # Creates a new book named "My book"',
+          #'Memoires  # Creates a new book named "Memoires"'
+         
         ]
-
+        
+      
         def call(name:, **)
-          warn "TODO: Implementar creación del cuaderno de notas con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          #warn "TODO: Implementar creación del cuaderno de notas con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          #puts "crea .... fin"+DirHome.home
+        if !(name =~/\W/) then
+          puts "nombre acceptado"
+          name = name.downcase
+          result=FileUtils.mkdir_p(DirHome.home+"/"+name) unless File.file?(FileUtils.pwd)
+          #File.new(DirHome.home+"/"+name+".rn", "a")
+          puts result
+        else
+          puts "lo sentimos el nombre no cumple con el formato establecido"
+        end
+
         end
       end
 
@@ -29,8 +45,8 @@ module RN
         ]
 
         def call(name: nil, **options)
-          global = options[:global]
-          warn "TODO: Implementar borrado del cuaderno de notas con nombre '#{name}' (global=#{global}).\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          #global = options[:global]
+          #warn "TODO: Implementar borrado del cuaderno de notas con nombre '#{name}' (global=#{global}).\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
         end
       end
 
@@ -42,7 +58,9 @@ module RN
         ]
 
         def call(*)
-          warn "TODO: Implementar listado de los cuadernos de notas.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          #warn "TODO: Implementar listado de los cuadernos de notas.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          puts "Mis carpetas:"
+          puts DirHome.list
         end
       end
 
