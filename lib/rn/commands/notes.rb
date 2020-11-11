@@ -1,3 +1,5 @@
+require 'tty-editor'
+require 'colorputs'
 module RN
   module Commands
     module Notes
@@ -27,15 +29,16 @@ module RN
             out_file.puts(title)
             out_file.close
           else
-            puts "lo sentimos el nombre no cumple con el formato establecido"
-            puts "el archivo ya existe"
+            puts "la nota ya existe o no cumple con el formato establecido"
           end
         end
       end
 
       class Delete < Dry::CLI::Command
         desc 'Delete a note'
+        #include ModuleFile
 
+        
         argument :title, required: true, desc: 'Title of the note'
         option :book, type: :string, desc: 'Book'
 
@@ -47,7 +50,13 @@ module RN
 
         def call(title:, **options)
           book = options[:book]
-          warn "TODO: Implementar borrado de la nota con título '#{title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          result= if File.file?(ModuleEnum::PATH_GLOBAL+title+".rn") then File.delete(ModuleEnum::PATH_GLOBAL+title+".rn") end
+          if result== 1 then
+            puts "La nota se elimino correctamente"
+          else
+            puts "No se pudo eliminar, la nota puede no existir"
+          end
+          #warn "TODO: Implementar borrado de la nota con título '#{title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
         end
       end
 
@@ -65,7 +74,12 @@ module RN
 
         def call(title:, **options)
           book = options[:book]
-          warn "TODO: Implementar modificación de la nota con título '#{title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          #warn "TODO: Implementar modificación de la nota con título '#{title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          if File.file?(ModuleEnum::PATH_GLOBAL+title+".rn") then
+            TTY::Editor.open(ModuleEnum::PATH_GLOBAL+title+".rn")
+            puts File.read(ModuleEnum::PATH_GLOBAL+title+".rn") ,rainbow
+          end
+          puts "ERROR: verifique el titulo"
         end
       end
 
@@ -84,7 +98,8 @@ module RN
 
         def call(old_title:, new_title:, **options)
           book = options[:book]
-          warn "TODO: Implementar cambio del título de la nota con título '#{old_title}' hacia '#{new_title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          #warn "TODO: Implementar cambio del título de la nota con título '#{old_title}' hacia '#{new_title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          
         end
       end
 
