@@ -7,7 +7,8 @@ module RN
         desc 'Create a note'
         include ModuleEnum
         include DirHome
-        include ModuleFile
+        DirHome::before
+        #include RN::ModuleFile
         argument :title, required: true, desc: 'Title of the note'
         option :book, type: :string, desc: 'Book'
 
@@ -20,16 +21,35 @@ module RN
         def call(title:, **options)
           book = options[:book]
           title = title.downcase
-          #puts book.nil?
+          
           #warn "TODO: Implementar creación de la nota con título '#{title}' (en el libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          if !(title =~/\W/) && !(File.file?(ModuleEnum::PATH_GLOBAL+title+".rn")) then
-            #puts ModuleEnum::PATH_GLOBAL
-            out_file=File.new(ModuleEnum::PATH_GLOBAL+title+".rn", "a")
-
-            out_file.puts(title)
-            out_file.close
+             
+          if !(title =~/\W/) then
+            puts "cumple con el formato"
+            #puts File.directory?(DirHome::path(book))
+            #puts DirHome::exists_dir?(book)
+            if !book.nil? then
+              if !File.file?(DirHome::path(book)+title+".rn") then
+                File.new(DirHome::path(book)+title+".rn", "a")
+                #puts DirHome::path(book)+title+".rn"
+                puts "La nota se creo en el libro: #{book}"
+              else
+                puts "Ya existe una nota #{title.upcase}.rn en la carpeta #{book.upcase}"
+              end
+            else
+              puts "para la carpeta global"
+              #puts ModuleEnum::PATH_GLOBAL+title+".rn"
+              #puts File.file?(ModuleEnum::PATH_GLOBAL+title+".rn")
+              if !File.file?(ModuleEnum::PATH_GLOBAL+title+".rn") then
+                File.new(ModuleEnum::PATH_GLOBAL+title+".rn", "a")
+                puts "La nota #{title} se creo en el libro GLOBAL"
+              else
+                puts "#{title.upcase} ya existe en la carpeta GLOBAL"
+              end 
+            end
+            
           else
-            puts "la nota ya existe o no cumple con el formato establecido"
+            puts "no cumple con el formato #{title}"
           end
         end
       end

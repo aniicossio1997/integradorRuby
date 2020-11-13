@@ -1,5 +1,7 @@
 module ModuleFile
-  def name_with_extend(title)
-    ModuleEnum::PATH_GLOBAL+title+".rn"
+  #include RN::ModuleFile
+  def self.name_with_extend(title)
+    puts PATH_GLOBAL+title+".rn"
+    puts title
   end
 end 
