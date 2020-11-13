@@ -29,13 +29,14 @@ module RN
             #puts File.directory?(DirHome::path(book))
             #puts DirHome::exists_dir?(book)
             if !book.nil? then
-              if !File.file?(DirHome::path(book)+title+".rn") then
-                File.new(DirHome::path(book)+title+".rn", "a")
-                #puts DirHome::path(book)+title+".rn"
-                puts "La nota se creo en el libro: #{book}"
-              else
-                puts "Ya existe una nota #{title.upcase}.rn en la carpeta #{book.upcase}"
+              puts DirHome::exists_dir?(book)
+              begin
+                true
+                puts "never get here"
+              rescue SystemExit
+                puts "rescued a SystemExit exception"
               end
+
             else
               puts "para la carpeta global"
               #puts ModuleEnum::PATH_GLOBAL+title+".rn"
@@ -49,8 +50,9 @@ module RN
             end
             
           else
-            puts "no cumple con el formato #{title}"
+            puts "El titulo -- #{title} -- no cumple con el formato"
           end
+          puts "sali.."
         end
       end
 
