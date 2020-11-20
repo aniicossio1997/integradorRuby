@@ -4,6 +4,7 @@ module RN
     module Books
       class Create < Dry::CLI::Command
         include DirHome
+
         desc 'Create a book'
         
 
@@ -18,16 +19,21 @@ module RN
       
         def call(name:, **)
           #warn "TODO: Implementar creación del cuaderno de notas con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          #puts "crea .... fin"+DirHome.home
-          puts "Recuerde que el nombre no debe contener caracteres especiales, espacios, y puntuaciones"
-          puts name
-          if (!!(name =~/[\w]/) && !(DirHome.exists_dir?(name))) then
+          # begin
+            
+          #   exit
+          #   puts "never get here"
+          # rescue SystemExit
+          #   puts "rescued a SystemExit exception"
+          # end
+          
+          if (!(name =~/\W/) && !(DirHome.exists_dir?(name)))
             name = name.downcase
             result=FileUtils.mkdir_p(DirHome.home+"/"+name) unless File.file?(FileUtils.pwd)
             #File.new(DirHome.home+"/"+name+".rn", "a")
             puts "SUCESS: Aceptado y creado"
           else
-            puts "WRONG: Lo sentimos el nombre no cumple con el formato establecido o el directorio existe"
+            puts "WRONG:", "Lo sentimos el nombre no cumple con el formato establecido o", "el directorio existe"
           end
 
         end
@@ -56,7 +62,7 @@ module RN
             else 
               FileUtils.rm_rf(Dir.glob(DirHome.path(name)))
             end
-            puts "SUCESS: eliminacion exitosa"
+            puts "SUCESS: se elimino el libro: #{name.upcase}"
           else
             puts "WRONG: upps! no se encontro el archivo"
           end
@@ -72,11 +78,11 @@ module RN
 
         def call(*)
           #warn "TODO: Implementar listado de los cuadernos de notas.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          puts "Mis carpetas:"
-         ## puts DirHome.list
+          puts DirHome.list.empty? ? 'No hay Libros creados' : 'Mis Libros:'
+          ## puts DirHome.list
           DirHome.list.each do |num|
-            puts num
-        end
+            puts "--> "+num
+          end
         end
       end
 

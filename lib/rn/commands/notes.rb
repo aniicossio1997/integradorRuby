@@ -8,6 +8,8 @@ module RN
         include ModuleEnum
         include DirHome
         DirHome::before
+        include RN::ModuleFile
+
         #include RN::ModuleFile
         argument :title, required: true, desc: 'Title of the note'
         option :book, type: :string, desc: 'Book'
@@ -23,19 +25,27 @@ module RN
           title = title.downcase
           
           #warn "TODO: Implementar creación de la nota con título '#{title}' (en el libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-             
-          if !(title =~/\W/) then
+          puts RN::ModuleFile::DATO
+          RN::ModuleFile.create_file(title,DirHome)
+
+          if !(title =~/\W/) 
             puts "cumple con el formato"
             #puts File.directory?(DirHome::path(book))
             #puts DirHome::exists_dir?(book)
-            if !book.nil? then
-              puts DirHome::exists_dir?(book)
-              begin
-                true
-                puts "never get here"
-              rescue SystemExit
-                puts "rescued a SystemExit exception"
+            if !book.nil? 
+              #puts DirHome::exists_dir?(book)
+              if DirHome::exists_dir?(book)
+                puts "La carpeta existe #{book}"
+              else
+                puts "La carpeta #{book.upcase} NO existe "
+                puts "No se pudo crear la nota:  #{title}.rn"
               end
+              # begin
+              #   exit
+              #   puts "never get here"
+              # rescue SystemExit
+              #   puts "rescued a SystemExit exception"
+              # end
 
             else
               puts "para la carpeta global"
@@ -52,7 +62,7 @@ module RN
           else
             puts "El titulo -- #{title} -- no cumple con el formato"
           end
-          puts "sali.."
+          #puts "sali.."
         end
       end
 
