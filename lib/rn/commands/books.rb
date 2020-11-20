@@ -21,20 +21,12 @@ module RN
           #warn "TODO: Implementar creación del cuaderno de notas con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
           # begin
             
-          #   exit
-          #   puts "never get here"
-          # rescue SystemExit
-          #   puts "rescued a SystemExit exception"
-          # end
-          
-          if (!(name =~/\W/) && !(DirHome.exists_dir?(name)))
-            name = name.downcase
-            result=FileUtils.mkdir_p(DirHome.home+"/"+name) unless File.file?(FileUtils.pwd)
-            #File.new(DirHome.home+"/"+name+".rn", "a")
-            puts "SUCESS: Aceptado y creado"
-          else
-            puts "WRONG:", "Lo sentimos el nombre no cumple con el formato establecido o", "el directorio existe"
-          end
+          #se crea un objeto Book
+          a_book = Models::Book.new(name)
+          Helpers::Book.create(a_book)
+          puts a_book
+
+
 
         end
       end

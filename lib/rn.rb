@@ -5,7 +5,12 @@ module RN
   autoload  :ModuleEnum, 'rn/commands/ModuleEnum'
   autoload  :ModuleFile, 'rn/ModuleFile'
   
-  
+
+  autoload  :Enum, 'rn/enum' 
+
+  autoload :Models, 'rn/models'
+  autoload :Helpers, 'rn/helpers'
+
   # Agregar aquí cualquier autoload que sea necesario para que se cargue las clases y
   # módulos del modelo de datos.
   # Por ejemplo:
