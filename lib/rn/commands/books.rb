@@ -6,8 +6,6 @@ module RN
         include DirHome
 
         desc 'Create a book'
-        
-
         argument :name, required: true, desc: 'Name of the book'
 
         example [
@@ -16,18 +14,12 @@ module RN
          
         ]
         
-      
         def call(name:, **)
           #warn "TODO: Implementar creación del cuaderno de notas con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          # begin
-            
+          # begin 
           #se crea un objeto Book
           a_book = Models::Book.new(name)
           Helpers::Book.create(a_book)
-          puts a_book
-
-
-
         end
       end
 
@@ -44,19 +36,17 @@ module RN
         ]
 
         def call(name: nil, **options)
-          #global = options[:global]
-          #warn "TODO: Implementar borrado del cuaderno de notas con nombre '#{name}' (global=#{global}).\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
           DirHome.before
-          name.downcase
-          if DirHome.exists_dir?(name) then
-            if name=="global" then
-              FileUtils.rm_rf(Dir.glob(DirHome.path(name+"/*")))
-            else 
-              FileUtils.rm_rf(Dir.glob(DirHome.path(name)))
-            end
-            puts "SUCESS: se elimino el libro: #{name.upcase}"
+          global = options[:global]
+          #warn "TODO: Implementar borrado del cuaderno de notas con nombre '#{name}' (global=#{global}).\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          
+          if !name.nil? && !name.strip.empty?
+            Helpers::Book.delete(Models::Book.new(name)) 
+          elsif global
+              FileUtils.rm_rf(Dir.glob(DirHome.path("global"+"/*")))
+              puts "Sucess: Se limpio el libro GLOBAL"
           else
-            puts "WRONG: upps! no se encontro el archivo"
+              puts "Requiere un argumento"
           end
         end
       end
@@ -71,10 +61,8 @@ module RN
         def call(*)
           #warn "TODO: Implementar listado de los cuadernos de notas.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
           puts DirHome.list.empty? ? 'No hay Libros creados' : 'Mis Libros:'
-          ## puts DirHome.list
-          DirHome.list.each do |num|
-            puts "--> "+num
-          end
+          Helpers::Book.all
+
         end
       end
 
@@ -94,21 +82,9 @@ module RN
         def call(old_name:, new_name:, **)
           DirHome.before
           #warn "TODO: Implementar renombrado del cuaderno de notas con nombre '#{old_name}' para que pase a llamarse '#{new_name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-        
-          if DirHome.exists_dir?(old_name) && old_name!=ModuleEnum::GLOBAL && new_name!=ModuleEnum::GLOBAL && !DirHome.exists_dir?(new_name)  then
-            begin 
-              File.rename(DirHome.path(old_name), DirHome.path(new_name)) 
-            rescue Exception => e 
-              # the exception your way
-              puts "Exeption: la operacion fue interumpida"
-            end
-            puts "SUCESS: Rename a book"
-          else
-            puts "--WRONG:"
-            puts "-GLOBAL no se puede renombrar"
-            puts "-No puede haber nombres repetidos"
-          end
 
+          Helpers::Book.rename(old_name,new_name)
+          
         end
       end
     end

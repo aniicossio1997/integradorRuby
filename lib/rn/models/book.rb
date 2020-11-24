@@ -11,6 +11,9 @@ module RN
       def to_s 
         "Libro: #{@name}" 
       end
+      def name_upcase
+        name.upcase
+      end
 
     end
   end

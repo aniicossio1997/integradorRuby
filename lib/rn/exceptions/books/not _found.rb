@@ -1,7 +1,8 @@
 module RN
   module Exceptions
     module Books
-      class NameExists< StandardError
+
+      class NotFound< StandardError
 
         attr_reader :book
         attr_reader :message
@@ -18,6 +19,7 @@ module RN
         end
 
       end
+
     end
   end
 end

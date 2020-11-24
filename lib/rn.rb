@@ -10,7 +10,7 @@ module RN
 
   autoload :Models, 'rn/models'
   autoload :Helpers, 'rn/helpers'
-
+  autoload :Exceptions, 'rn/exceptions'
   # Agregar aquí cualquier autoload que sea necesario para que se cargue las clases y
   # módulos del modelo de datos.
   # Por ejemplo:

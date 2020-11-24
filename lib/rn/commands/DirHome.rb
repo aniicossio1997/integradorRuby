@@ -1,7 +1,7 @@
 require 'fileutils'
 module DirHome
   def self.home
-    @home ||= (ENV['HOME']+"/.my_rns")
+    @home ||= ("#{ENV['HOME']}/.my_rns")
   end
   def self.sucess
     FileUtils.mkdir_p(self.home) unless File.file?(FileUtils.pwd)
@@ -24,7 +24,7 @@ module DirHome
     #Dir.exists?(ENV['HOME']+"/.my_rns"+"/"+name)
   end
   def self.before
-    if !Dir.exists?(self.home+"/"+"global") then 
+    if !Dir.exists?(self.home+"/global") then 
       FileUtils.mkdir_p(self.home) unless File.file?(FileUtils.pwd)
       FileUtils.mkdir_p(self.home+"/"+"global") unless File.file?(FileUtils.pwd)
     end
