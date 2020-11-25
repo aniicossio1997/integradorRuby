@@ -25,43 +25,46 @@ module RN
           title = title.downcase
           
           #warn "TODO: Implementar creación de la nota con título '#{title}' (en el libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          puts RN::ModuleFile::DATO
-          RN::ModuleFile.create_file(title,DirHome)
+          
+          #RN::ModuleFile.create_file(title,DirHome)
+          #puts book || Helpers::Enum::PATH_GLOBAL
+          note=Models::Note.new(title)
+          Helpers::Note.create(note)
 
-          if !(title =~/\W/) 
-            puts "cumple con el formato"
-            #puts File.directory?(DirHome::path(book))
-            #puts DirHome::exists_dir?(book)
-            if !book.nil? 
-              #puts DirHome::exists_dir?(book)
-              if DirHome::exists_dir?(book)
-                puts "La carpeta existe #{book}"
-              else
-                puts "La carpeta #{book.upcase} NO existe "
-                puts "No se pudo crear la nota:  #{title}.rn"
-              end
-              # begin
-              #   exit
-              #   puts "never get here"
-              # rescue SystemExit
-              #   puts "rescued a SystemExit exception"
-              # end
+          # if !(title =~/\W/) 
+          #   puts "cumple con el formato"
+          #   #puts File.directory?(DirHome::path(book))
+          #   #puts DirHome::exists_dir?(book)
+          #   if !book.nil? 
+          #     #puts DirHome::exists_dir?(book)
+          #     if DirHome::exists_dir?(book)
+          #       puts "La carpeta existe #{book}"
+          #     else
+          #       puts "La carpeta #{book.upcase} NO existe "
+          #       puts "No se pudo crear la nota:  #{title}.rn"
+          #     end
+          #     # begin
+          #     #   exit
+          #     #   puts "never get here"
+          #     # rescue SystemExit
+          #     #   puts "rescued a SystemExit exception"
+          #     # end
 
-            else
-              puts "para la carpeta global"
-              #puts ModuleEnum::PATH_GLOBAL+title+".rn"
-              #puts File.file?(ModuleEnum::PATH_GLOBAL+title+".rn")
-              if !File.file?(ModuleEnum::PATH_GLOBAL+title+".rn") then
-                File.new(ModuleEnum::PATH_GLOBAL+title+".rn", "a")
-                puts "La nota #{title} se creo en el libro GLOBAL"
-              else
-                puts "#{title.upcase} ya existe en la carpeta GLOBAL"
-              end 
-            end
+          #   else
+          #     puts "para la carpeta global"
+          #     #puts ModuleEnum::PATH_GLOBAL+title+".rn"
+          #     #puts File.file?(ModuleEnum::PATH_GLOBAL+title+".rn")
+          #     if !File.file?(ModuleEnum::PATH_GLOBAL+title+".rn") then
+          #       File.new(ModuleEnum::PATH_GLOBAL+title+".rn", "a")
+          #       puts "La nota #{title} se creo en el libro GLOBAL"
+          #     else
+          #       puts "#{title.upcase} ya existe en la carpeta GLOBAL"
+          #     end 
+          #   end
             
-          else
-            puts "El titulo -- #{title} -- no cumple con el formato"
-          end
+          # else
+          #   puts "El titulo -- #{title} -- no cumple con el formato"
+          # end
           #puts "sali.."
         end
       end

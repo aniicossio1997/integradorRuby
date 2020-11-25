@@ -1,12 +1,16 @@
 module RN
   module Models
-    class note 
-      attr_accessor :book, :content
+    class Note 
+      attr_accessor :book
+      attr_accessor :content
       attr_reader :title
-      def initialize(title,book,content='')
-        @book = book || ENV['RN_GLOBAL_BOOK_NAME']
+      def initialize(title,book= Models::Book.new("global"),content='')
+        @book = book 
         @content = content
-        @title = title
+        @title = Helpers::Sanitizer.string(title)
+      end
+      def to_s
+        "nota: #{title} y pertenezco al #{book}"
       end
     end
   end

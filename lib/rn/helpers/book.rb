@@ -24,19 +24,21 @@ module RN
         end
       end
       def self.rename(old_name, new_name)
+        old_book= Models::Book.new(old_name)
+        new_book= Models::Book.new(new_name)
         begin
-          old_name.downcase != "global" || raise(Exceptions::Books::Generico.new('RENAME GLOBAL', "El libro #{old_name} no se puede renombrar"))
+          (old_book.name != "global" ) || raise(Exceptions::Books::Generico.new('[ERROR RENAME GLOBAL]', "No se puede renombrar o utilizar GLOBAL"))
+          File.rename(Helpers::Enum.full_path_book(old_book.name), Helpers::Enum.full_path_book(new_book.name)) 
+        rescue Errno::ENOTEMPTY
+          puts "[ERROR RENAME] No se puede renombrar con el nombre #{new_book.name} YA EXISTENTE "
+        rescue Errno::ENOENT
+          puts "[ERROR RENAME] no se encontro el #{old_book}"
         rescue => e
           puts e
-          exit
+        else
+          puts "[SUCESS:] Se renombro #{old_book} con #{new_book}"
         end
-        begin 
-        File.rename(Helpers::Enum.full_path_book(old_name), Helpers::Enum.full_path_book(new_name)) 
-        rescue Errno::ENOTEMPTY
-          raise(Exceptions::Books::Generico.new('RENAME', "[ERROR:] verifique que el nuevo nombre no exista")) 
-          rescue => e
-            puts e.to_s
-        end
+
       end
 
       private 

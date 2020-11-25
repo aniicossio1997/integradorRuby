@@ -1,8 +1,8 @@
 module RN
   module Helpers
     class Note
-      def self.prueba
-        puts "hello Helpers note"
+      def self.create(note)
+        
       end
 
     end
