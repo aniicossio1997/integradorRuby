@@ -18,8 +18,15 @@ module RN
           #warn "TODO: Implementar creación del cuaderno de notas con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
           # begin 
           #se crea un objeto Book
-          a_book = Models::Book.new(name)
-          Helpers::Book.create(a_book)
+          begin
+          book = Models::Book.new(name)
+          book.save
+          rescue =>e
+              puts e
+          else
+            puts "SUCESS: #{book}" 
+          end
+
         end
       end
 

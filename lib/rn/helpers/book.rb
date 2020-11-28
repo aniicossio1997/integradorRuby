@@ -1,14 +1,7 @@
 module RN
   module Helpers
     class Book
-      def self.create(book)
-          !Dir.exists?(Helpers::Enum.full_path_book(book.name)) || raise(Exceptions::Books::NameExists.new(book.name))
-          FileUtils.mkdir_p(Helpers::Enum.full_path_book(book.name))
-          puts "SUCESS: Aceptado y creado" 
-        rescue =>e
-            puts e
-        end
-
+      
       def self.delete(book)
           Dir.exists?(Helpers::Enum.full_path_book(book.name)) || raise(Exceptions::Books::Generico.new('DELETE BOOK', "El libro #{book.name_upcase} no se encontro"))
           FileUtils.rm_rf(Helpers::Enum.full_path_book(book.name))
