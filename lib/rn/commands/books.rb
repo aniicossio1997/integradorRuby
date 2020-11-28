@@ -11,20 +11,18 @@ module RN
         example [
           #'"My book" # Creates a new book named "My book"',
           #'Memoires  # Creates a new book named "Memoires"'
-         
         ]
-        
         def call(name:, **)
           #warn "TODO: Implementar creación del cuaderno de notas con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
           # begin 
           #se crea un objeto Book
-          begin
           book = Models::Book.new(name)
-          book.save
-          rescue =>e
+          begin
+            book.save
+          rescue Exceptions::Books::NameExists => e
               puts e
           else
-            puts "SUCESS: #{book}" 
+            puts "[SUCESS:] se creo #{book}" 
           end
 
         end
@@ -35,26 +33,34 @@ module RN
 
         argument :name, required: false, desc: 'Name of the book'
         option :global, type: :boolean, default: false, desc: 'Operate on the global book'
-
         example [
           '--global  # Deletes all notes from the global book',
           '"My book" # Deletes a book named "My book" and all of its notes',
           'Memoires  # Deletes a book named "Memoires" and all of its notes'
         ]
-
         def call(name: nil, **options)
           DirHome.before
           global = options[:global]
           #warn "TODO: Implementar borrado del cuaderno de notas con nombre '#{name}' (global=#{global}).\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          
-          if !name.nil? && !name.strip.empty?
-            Helpers::Book.delete(Models::Book.new(name)) 
-          elsif global
-              FileUtils.rm_rf(Dir.glob("#{Helpers::Enum::PATH_GLOBAL}/*"))
+          # aux = (!name.nil? && !global) ? name : ((global && name.nil?) ? 'global' : 'exit')
+          # puts aux
+          if !name.nil? && !name.strip.empty? && !global
+            begin
+              book=Models::Book.new(name)
+              book.delete
+            rescue Exceptions::Books::Generico => e
+              puts e
+            else
+              puts "se elimino el #{book}"
+            end
+          elsif (global && name.nil?)
+              book= Models::BookGlobal.new
+              book.delete
               puts "Sucess: Se limpio el libro GLOBAL"
           else
-              puts "Requiere un argumento"
+              puts "Requiere un argumento valido"
           end
+                    
         end
       end
 
@@ -67,14 +73,13 @@ module RN
 
         def call(*)
           #warn "TODO: Implementar listado de los cuadernos de notas.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          puts DirHome.list.empty? ? 'No hay Libros creados' : 'Mis Libros:'
-          Helpers::Book.all
+          puts DirHome.list.empty? ? 'No hay Libros creados' : '[Mis Libros:] '
+          puts Models::Book.books_whitout_global
 
         end
       end
 
       class Rename < Dry::CLI::Command
-        include ModuleEnum
         desc 'Rename a book'
 
         argument :old_name, required: true, desc: 'Current name of the book'
@@ -89,8 +94,19 @@ module RN
         def call(old_name:, new_name:, **)
           DirHome.before
           #warn "TODO: Implementar renombrado del cuaderno de notas con nombre '#{old_name}' para que pase a llamarse '#{new_name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-
-          Helpers::Book.rename(old_name,new_name)
+          old_book= Models::Book.new(old_name)
+          new_book= Models::Book.new(new_name)
+          begin
+            old_book.rename(new_book)          
+          rescue Errno::ENOTEMPTY
+            puts "[ERROR:] No se puede renombrar con el nombre #{new_book.name} YA EXISTENTE dicho libro"
+          rescue Errno::ENOENT
+            puts "[ERROR:] no se encontro el #{old_book}"
+          rescue => e
+            puts e
+          else
+            puts "[SUCESS:] Se renombro #{old_book} por el #{new_book}"
+          end
           
         end
       end
