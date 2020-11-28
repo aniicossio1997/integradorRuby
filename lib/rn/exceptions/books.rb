@@ -16,7 +16,7 @@ module RN
         end
         
         def to_s
-          "[Exception:] #{ type }  \n#{message}"
+          "[ERROR:]  #{message}"
         end
       end
     end

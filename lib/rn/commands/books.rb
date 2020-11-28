@@ -43,7 +43,7 @@ module RN
           if !name.nil? && !name.strip.empty?
             Helpers::Book.delete(Models::Book.new(name)) 
           elsif global
-              FileUtils.rm_rf(Dir.glob(DirHome.path("global"+"/*")))
+              FileUtils.rm_rf(Dir.glob("#{Helpers::Enum::PATH_GLOBAL}/*"))
               puts "Sucess: Se limpio el libro GLOBAL"
           else
               puts "Requiere un argumento"

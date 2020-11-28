@@ -30,7 +30,7 @@ module RN
           (old_book.name != "global" ) || raise(Exceptions::Books::Generico.new('[ERROR RENAME GLOBAL]', "No se puede renombrar o utilizar GLOBAL"))
           File.rename(Helpers::Enum.full_path_book(old_book.name), Helpers::Enum.full_path_book(new_book.name)) 
         rescue Errno::ENOTEMPTY
-          puts "[ERROR RENAME] No se puede renombrar con el nombre #{new_book.name} YA EXISTENTE "
+          puts "[ERROR RENAME] No se puede renombrar con el nombre #{new_book.name} YA EXISTENTE dicho libro"
         rescue Errno::ENOENT
           puts "[ERROR RENAME] no se encontro el #{old_book}"
         rescue => e

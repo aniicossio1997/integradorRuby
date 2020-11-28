@@ -11,6 +11,9 @@ module RN
       def self.full_path_book(string)
         Enum::PATH+"/#{string}"
       end
+      # def self.full_path_note(title,book_name)
+
+      # end
     end
 end
 end

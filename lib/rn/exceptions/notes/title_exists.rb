@@ -1,15 +1,14 @@
 module RN
   module Exceptions
-    module Books
-      class NameExists< StandardError
-
-        attr_reader :book
+    module Notes
+      class TitleExists< StandardError
+        attr_reader :note
         attr_reader :message
-        def initialize(book,message="[Error:] Ya existe el libro #{book.upcase}")
+        def initialize(note,message="[Error:] Ya existe la #{note}")
           # Call the parent's constructor to set the message
           @message = message
-          # Store the book in an instance variable
-          @book = book
+          # Store the note in an instance variable
+          @note = note
           super(message)
         end
         

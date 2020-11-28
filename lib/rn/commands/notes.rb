@@ -22,50 +22,24 @@ module RN
 
         def call(title:, **options)
           book = options[:book]
-          title = title.downcase
-          
+          #title = title.downcase
+          #puts title.strip
           #warn "TODO: Implementar creación de la nota con título '#{title}' (en el libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          
-          #RN::ModuleFile.create_file(title,DirHome)
-          #puts book || Helpers::Enum::PATH_GLOBAL
-          note=Models::Note.new(title)
-          Helpers::Note.create(note)
-
-          # if !(title =~/\W/) 
-          #   puts "cumple con el formato"
-          #   #puts File.directory?(DirHome::path(book))
-          #   #puts DirHome::exists_dir?(book)
-          #   if !book.nil? 
-          #     #puts DirHome::exists_dir?(book)
-          #     if DirHome::exists_dir?(book)
-          #       puts "La carpeta existe #{book}"
-          #     else
-          #       puts "La carpeta #{book.upcase} NO existe "
-          #       puts "No se pudo crear la nota:  #{title}.rn"
-          #     end
-          #     # begin
-          #     #   exit
-          #     #   puts "never get here"
-          #     # rescue SystemExit
-          #     #   puts "rescued a SystemExit exception"
-          #     # end
-
-          #   else
-          #     puts "para la carpeta global"
-          #     #puts ModuleEnum::PATH_GLOBAL+title+".rn"
-          #     #puts File.file?(ModuleEnum::PATH_GLOBAL+title+".rn")
-          #     if !File.file?(ModuleEnum::PATH_GLOBAL+title+".rn") then
-          #       File.new(ModuleEnum::PATH_GLOBAL+title+".rn", "a")
-          #       puts "La nota #{title} se creo en el libro GLOBAL"
-          #     else
-          #       puts "#{title.upcase} ya existe en la carpeta GLOBAL"
-          #     end 
-          #   end
-            
-          # else
-          #   puts "El titulo -- #{title} -- no cumple con el formato"
-          # end
-          #puts "sali.."
+          puts 
+          if title.strip.empty?
+            puts 'Debe ingresar un titulo de nota no vacío'
+          else
+            note=Models::Note.new(title,book)
+            begin
+              note.save
+            rescue Exceptions::Notes::Exists => e
+              puts e
+            rescue Exceptions::Books::NotFound => e
+              puts e
+            else
+             puts "se crea la #{note} en el #{note.book}"
+            end
+          end
         end
       end
 
@@ -85,17 +59,24 @@ module RN
 
         def call(title:, **options)
           book = options[:book]
-          result= if File.file?(ModuleEnum::PATH_GLOBAL+title+".rn") then File.delete(ModuleEnum::PATH_GLOBAL+title+".rn") end
-          if result== 1 then
-            puts "La nota se elimino correctamente"
+
+          note=Models::Note.new(title,book)
+          begin
+            note.delete
+          rescue Exceptions::Books::NotFound => e
+            puts e
+          rescue Errno::ENOENT =>e
+            puts "[ERROR NOTE:] EL #{note.book} no tiene a #{note}"
           else
-            puts "No se pudo eliminar, la nota puede no existir"
+            puts "[Sucess] Eliminación de #{note} completada"
           end
+
           #warn "TODO: Implementar borrado de la nota con título '#{title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
         end
       end
 
       class Edit < Dry::CLI::Command
+        include TTY::Color
         desc 'Edit the content a note'
 
         argument :title, required: true, desc: 'Title of the note'
@@ -110,11 +91,17 @@ module RN
         def call(title:, **options)
           book = options[:book]
           #warn "TODO: Implementar modificación de la nota con título '#{title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          if File.file?(ModuleEnum::PATH_GLOBAL+title+".rn") then
-            TTY::Editor.open(ModuleEnum::PATH_GLOBAL+title+".rn")
-            puts File.read(ModuleEnum::PATH_GLOBAL+title+".rn") ,rainbow
+          note = Models::Note.new(title,book)
+          begin
+            note.edit
+          rescue Exceptions::Notes::Error => e
+            puts e
+          rescue Exceptions::Books::NotFound => e
+            puts e
+          else
+            "se edito correctamente"
           end
-          puts "ERROR: verifique el titulo"
+          
         end
       end
 
@@ -133,17 +120,29 @@ module RN
 
         def call(old_title:, new_title:, **options)
           book = options[:book]
+          new_title = Helpers::Sanitizer.string(new_title)
           #warn "TODO: Implementar cambio del título de la nota con título '#{old_title}' hacia '#{new_title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          
+          note=Models::Note.new(old_title,book)
+          begin
+            note.retitle(new_title)
+          rescue Exceptions::Books::NotFound => e
+            puts e
+          rescue Errno::ENOENT =>e
+            puts "[ERROR NOTE:] EL #{note.book} no tiene a #{note}"
+          rescue => e
+            puts e
+          else
+            puts "[Sucess] se renombro -- #{old_title} -- con -- #{new_title} -- "
+          end
         end
       end
 
       class List < Dry::CLI::Command
         desc 'List notes'
-
+        DirHome.before
         option :book, type: :string, desc: 'Book'
         option :global, type: :boolean, default: false, desc: 'List only notes from the global book'
-
+        #option :all, type: :string, desc: 'All'
         example [
           '                 # Lists notes from all books (including the global book)',
           '--global         # Lists notes from the global book',
@@ -154,7 +153,24 @@ module RN
         def call(**options)
           book = options[:book]
           global = options[:global]
-          warn "TODO: Implementar listado de las notas del libro '#{book}' (global=#{global}).\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          #warn "TODO: Implementar listado de las notas del libro '#{book}' (global=#{global}).\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          option= option = global  ? 'global' : (book.nil? ? 'all' : book)
+        
+          if option == "all"
+            notes= Models::Note.all_notes
+            msj= notes.empty? ? 'No hay notas' : 'Todas las notas:'
+            puts "#{msj} \n#{(notes)}\n"
+          else
+            begin
+              other_book= Models::Book.new(option)
+              if other_book.notes.empty?
+                puts "no hay notas en esa carpeta"
+              end
+              puts "#{(other_book.notes)}"
+            rescue Exceptions::Books::NotFound => e
+              puts e
+            end
+          end
         end
       end
 
@@ -172,7 +188,17 @@ module RN
 
         def call(title:, **options)
           book = options[:book]
-          warn "TODO: Implementar vista de la nota con título '#{title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          note= Models::Note.new(title,book)
+          begin
+            note.show
+          rescue Exceptions::Notes::Error => e
+            puts e
+          rescue Exceptions::Books::NotFound => e
+            puts e
+          rescue => e 
+              puts e
+          end
+          #warn "TODO: Implementar vista de la nota con título '#{title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
         end
       end
     end
