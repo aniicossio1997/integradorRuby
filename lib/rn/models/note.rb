@@ -46,7 +46,7 @@ module RN
         (!self.empty?) || raise("#{title} esta vacio")
         puts File.read(self.path_full) ,:rainbow
       end
-      private
+      
       def persists?
         Dir.exists?(self.path) || raise(Exceptions::Books::NotFound.new(self.book))
         File.file?(self.path_full) || raise(Exceptions::Notes::Error.new("","La #{self} no existe en #{book}"))

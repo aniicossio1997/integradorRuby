@@ -10,18 +10,10 @@ module DirHome
     self.home+"/"+name+"/"
   end
 
-  def self.list
-    #((Dir.entries(self.home)).delete_if{ |each| !!(each =~/[\W]/)})
-    #Dir.entries(self.home).delete_if{ |each| !!(each =~(/global|[\W]/))}
-    #`ls $HOME/.my_rns`. split("\n").reject {|x| x =~ /global/ }
-   Dir.entries(self.home).reject {|x| x =~ /global|[\W]/ }
-  end
-  #def self.create_dir(name)
-  #  (FileUtils.mkdir_p(self.home+"/"+name)) unless File.file?(FileUtils.pwd)
-  #end
+
   def self.exists_dir?(name)
     Dir.exists?(self.home+"/"+name)
-    #Dir.exists?(ENV['HOME']+"/.my_rns"+"/"+name)
+ 
   end
   def self.before
     if !Dir.exists?(self.home+"/global") then 

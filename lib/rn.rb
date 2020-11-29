@@ -2,11 +2,7 @@ module RN
   autoload :VERSION, 'rn/version'
   autoload :Commands, 'rn/commands'
   autoload  :DirHome,  'rn/commands/DirHome'
-  autoload  :ModuleEnum, 'rn/commands/ModuleEnum'
-  autoload  :ModuleFile, 'rn/ModuleFile'
   
-
-  autoload  :Enum, 'rn/enum' 
 
   autoload :Models, 'rn/models'
   autoload :Helpers, 'rn/helpers'

@@ -73,7 +73,7 @@ module RN
 
         def call(*)
           #warn "TODO: Implementar listado de los cuadernos de notas.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          puts DirHome.list.empty? ? 'No hay Libros creados' : '[Mis Libros:] '
+          puts Models::Book.books_whitout_global.empty? ? 'No hay Libros creados' : '[Mis Libros:] '
           puts Models::Book.books_whitout_global
 
         end

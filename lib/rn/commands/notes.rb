@@ -5,12 +5,9 @@ module RN
     module Notes
       class Create < Dry::CLI::Command
         desc 'Create a note'
-        include ModuleEnum
         include DirHome
         DirHome::before
-        include RN::ModuleFile
 
-        #include RN::ModuleFile
         argument :title, required: true, desc: 'Title of the note'
         option :book, type: :string, desc: 'Book'
 
@@ -45,9 +42,7 @@ module RN
 
       class Delete < Dry::CLI::Command
         desc 'Delete a note'
-        #include ModuleFile
 
-        
         argument :title, required: true, desc: 'Title of the note'
         option :book, type: :string, desc: 'Book'
 
@@ -171,6 +166,7 @@ module RN
               puts e
             end
           end
+
         end
       end
 
@@ -201,6 +197,42 @@ module RN
           #warn "TODO: Implementar vista de la nota con título '#{title}' (del libro '#{book}').\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
         end
       end
+
+
+      class Report < Dry::CLI::Command
+        desc 'report notes'
+        DirHome.before
+
+        argument :title, required: true, desc: 'Title of the note'        
+        option :book, type: :string, desc: 'Book'
+        
+        #option :all, type: :string, desc: 'All'
+        example [
+            '"file" --book "My book" #report the note "file"  from the book "My book" '
+        ]
+
+        # – Una nota en particular. --book "title"
+        # – Todas las notas de un cuaderno en particular.
+        # – Todas las notas presentes en todos los cuadernos del cajón de notas.
+        
+        def call(title:, **options)
+          book = options[:book]
+          #all = options[:all]
+          #warn "TODO: Implementar listado de las notas del libro '#{book}' (global=#{global}).\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          #option= option = global  ? 'global' : (book.nil? ? 'all' : book)
+          #option= !book.nil? ? book : 'global' 
+          if !book.nil? && !title.nil?
+            note=Models::Note.new(title,book)
+            puts "reporte de una en un libro que no sea el global"
+          elsif(book.nil? && !title.nil?)
+            puts "repote de una nota de la carpeta global"
+          else
+            puts "[ERROR:] requiere un argumento valido"
+          end
+
+        end
+      end
+
     end
   end
 end
