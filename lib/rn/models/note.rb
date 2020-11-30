@@ -1,7 +1,9 @@
 module RN
   module Models
     class Note
+      include RN::Helpers
       include Helpers::Enum
+      
       attr_accessor :book
       attr_reader :content
       attr_reader :title
@@ -9,7 +11,7 @@ module RN
         (!title.nil? && !title.strip.empty?)  || raise("[ERROR:] el titulo de la nota no puede ser un vacio")
         @book = (book.nil? ? Models::Book.new("global") : Models::Book.new(book))
         @content = content
-        @title = Helpers::Sanitizer.string(title)
+        @title = self.sanitizer_string(title)
       end
       def to_s
         "nota: #{title}"
@@ -51,18 +53,26 @@ module RN
       
       def persists?
         Dir.exists?(self.path) || raise(Exceptions::Books::NotFound.new(self.book))
-        File.file?(self.path_full) || raise(Exceptions::Notes::Error.new("","La #{self} no existe en #{book}"))
+        File.file?(self.path_full) || raise(Exceptions::Notes::Error.new("La #{self} no existe en #{book}"))
       end
       def empty?
         File.zero?(self.path_full)
       end
       def path_full_changed_pdf
-        "#{book.path}/#{title}.pdf"
+        "#{book.path}/#{title}_#{book.name}.pdf"
       end
-      def report
+      def path_all_pdf
+        "#{PATH}/#{title}_#{book.name}.pdf"
+      end
+      def report(save_pdf=nil)
         self.persists?
-        `"#{MD2PDF}" "#{self.path_full}" "#{self.path_full_changed_pdf}"`
+        #!self.empty? || raise(Exceptions::Notes::Error.new("La nota se encuentra vacia para exportar a pdf"))
+        save_pdf = save_pdf.nil? ? (self.path_full_changed_pdf) : (self.path_all_pdf)
+        `"#{MD2PDF}" "#{self.path_full}" "#{save_pdf}"`
+      end
       
+      def content
+        File.read(self.path_full)
       end
 
     end

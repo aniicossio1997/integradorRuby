@@ -19,17 +19,15 @@ module RN
       end
       class Error< StandardError
         attr_reader :message
-        attr_reader :action
-        def initialize(action="",message="")
+        def initialize(message="")
           # Call the parent's constructor to set the message
           
           # Store the note in an instance variable
           super(message)
           @message = message
-          @action= action
         end
         def to_s
-          "[ERROR:]  #{action}  #{message}"
+          "[ERROR:] #{message}"
         end
 
       end

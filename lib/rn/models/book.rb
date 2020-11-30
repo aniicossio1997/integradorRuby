@@ -1,3 +1,5 @@
+require "find"
+
 module RN
   module Models
     class Book
@@ -47,23 +49,37 @@ module RN
       end
 
       def notes
-        Dir.exists?(self.path) || raise(Exceptions::Books::NotFound.new(self))
-        (Dir.children("#{PATH}/#{name}")).join("\n")
+        self.notes_with_path_full.map{|each| (File.basename(each,".rn"))}
       end
 
       def self.all_notes
-        names_of_books=Models::Book.all_books
-        object_books=Array.new
-        names_of_books.each {|book| object_books.push(Models::Book.new(book))}
         notes=Array.new
-        object_books.each {|a_book| a_book.notes.empty? ? '' : (notes.push(a_book.notes))}
+        Models::Book.report_all_notes.each {|a_book| a_book.notes.empty? ? '' : (notes.push(a_book.notes))}
         notes.join("\n ")
       end
+      def self.all_instancias_book
+        names_of_books=Models::Book.all_books
+        names_of_books.map {|book| (Models::Book.new(book))} 
+      end
 
+      def notes_with_path_full
+        Dir.exists?(self.path) || raise(Exceptions::Books::NotFound.new(self))
+        Dir.children("#{self.path}").reject{|each| (File.basename(each,".rn")).size==each.size}
+      end
+
+      def report_my_notes(all=nil)
+        self.my_notes_not_empty.each {|note| (Models::Note.new(note,self.name)).report(all)}
+      end
+      def my_notes_not_empty
+        (self.notes).reject{ |note| (Models::Note.new(note,self.name)).empty? }
+      end
       def self.all_books
         Dir.entries(PATH).reject {|x| x =~ /[\W]/ }
       end
 
+      def self.report_all_notes
+        Models::Book.all_instancias_book.each{ |book| book.report_my_notes(true)}
+      end
 
     end
   end

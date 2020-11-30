@@ -208,7 +208,7 @@ module RN
             '"file" --book "My book" #report the note "file"  from the book "My book" '
         ]
 
-        # – Una nota en particular. --book "title"
+        # – Una nota en particular.title-note --book "name book"
         # – Todas las notas de un cuaderno en particular.
         # – Todas las notas presentes en todos los cuadernos del cajón de notas.
         
@@ -236,6 +236,7 @@ module RN
 
         end
       end
+
 
     end
   end

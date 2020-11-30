@@ -11,6 +11,7 @@ module RN
       prefix.register 'delete', Books::Delete
       prefix.register 'list', Books::List
       prefix.register 'rename', Books::Rename
+      prefix.register 'reportOf', Books::ReportOf
     end
 
     register 'notes', aliases: ['n'] do |prefix|

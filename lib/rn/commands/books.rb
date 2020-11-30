@@ -110,6 +110,46 @@ module RN
           
         end
       end
+      
+
+      class ReportOf < Dry::CLI::Command
+        desc 'Report all notes in a book or report all notes in the system'
+
+        option :book, type: :string, desc: 'Book'
+        option :global, type: :boolean, default: false, desc: 'Operate on the global book'
+        option :all, type: :boolean, default: false, desc: 'operate reports all notes '
+        example [
+          '--global  # report all notes from the global book',
+          '"My book" # report all notes from the book "my book',
+          '          # report all notes in the system'
+        ]
+        def call(**options)
+          global = options[:global]
+          book = options[:book]
+          all = options[:all]
+          name = global  ? 'global' : ((!book.nil? && !book.strip.empty?) ? book : "")
+          if !all
+            begin
+              book= Models::Book.new(name)
+            rescue => e
+              puts e
+            else
+              puts "Solo se exportaran los archivos que no esten vacios\n"
+              puts "Iniciando reporte de: #{book}"
+              book.report_my_notes
+              if ((book.my_notes_not_empty).size).zero? then puts "\n[ups] El #{book} no tiene notas que puedan ser exportadas a PDF \n " end
+              puts "Finalizando reporte de #{book}"
+            end
+          else
+              puts "comenzando reporte de todos las notas del sistema"
+              Models::Book.report_all_notes
+              puts "Finalizando reporte de todas las notas del sistema"
+          end
+          
+                    
+        end
+      end
+
     end
   end
 end
