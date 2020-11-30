@@ -24,7 +24,7 @@ module RN
 
       def delete
         Dir.exists?(self.path) || raise(Exceptions::Books::Generico.new('DELETE', "El #{self} no se encontro"))
-        !(name ==Enum::GLOBAL) || raise(Exceptions::Books::Generico.new('', "No se puede eliminar la carpeta global"))
+        !(name ==Enum::GLOBAL) || raise(Exceptions::Books::Generico.new('', "No se puede eliminar la carpeta global, ya que es una carpeta por defecto del sistema"))
         FileUtils.rm_rf(self.path)
       end
       

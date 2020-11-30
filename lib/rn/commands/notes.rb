@@ -5,9 +5,7 @@ module RN
     module Notes
       class Create < Dry::CLI::Command
         desc 'Create a note'
-        include DirHome
-        DirHome::before
-
+        
         argument :title, required: true, desc: 'Title of the note'
         option :book, type: :string, desc: 'Book'
 
@@ -134,7 +132,6 @@ module RN
 
       class List < Dry::CLI::Command
         desc 'List notes'
-        DirHome.before
         option :book, type: :string, desc: 'Book'
         option :global, type: :boolean, default: false, desc: 'List only notes from the global book'
         #option :all, type: :string, desc: 'All'
@@ -201,7 +198,6 @@ module RN
 
       class Report < Dry::CLI::Command
         desc 'report notes'
-        DirHome.before
 
         argument :title, required: true, desc: 'Title of the note'        
         option :book, type: :string, desc: 'Book'

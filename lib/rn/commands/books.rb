@@ -3,8 +3,6 @@ module RN
   module Commands
     module Books
       class Create < Dry::CLI::Command
-        include DirHome
-
         desc 'Create a book'
         argument :name, required: true, desc: 'Name of the book'
 
@@ -16,6 +14,7 @@ module RN
           #warn "TODO: Implementar creación del cuaderno de notas con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
           # begin 
           #se crea un objeto Book
+          
           book = Models::Book.new(name)
           begin
             book.save
@@ -39,7 +38,6 @@ module RN
           'Memoires  # Deletes a book named "Memoires" and all of its notes'
         ]
         def call(name: nil, **options)
-          DirHome.before
           global = options[:global]
           #warn "TODO: Implementar borrado del cuaderno de notas con nombre '#{name}' (global=#{global}).\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
           # aux = (!name.nil? && !global) ? name : ((global && name.nil?) ? 'global' : 'exit')
@@ -92,7 +90,6 @@ module RN
         ]
 
         def call(old_name:, new_name:, **)
-          DirHome.before
           #warn "TODO: Implementar renombrado del cuaderno de notas con nombre '#{old_name}' para que pase a llamarse '#{new_name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
           old_book= Models::Book.new(old_name)
           new_book= Models::Book.new(new_name)

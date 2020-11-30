@@ -1,9 +1,7 @@
 module RN
   autoload :VERSION, 'rn/version'
   autoload :Commands, 'rn/commands'
-  autoload  :DirHome,  'rn/commands/DirHome'
   
-
   autoload :Models, 'rn/models'
   autoload :Helpers, 'rn/helpers'
   autoload :Exceptions, 'rn/exceptions'
