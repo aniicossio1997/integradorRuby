@@ -5,7 +5,7 @@ module RN
 
         attr_reader :book
         attr_reader :message
-        def initialize(book,message="[Error:] el #{book} existe ")
+        def initialize(book,message="[ERROR:] el #{book} existe ")
           # Call the parent's constructor to set the message
           @message = message
           # Store the book in an instance variable

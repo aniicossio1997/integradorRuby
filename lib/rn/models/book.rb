@@ -1,10 +1,12 @@
 module RN
   module Models
     class Book
+      include Helpers::Enum
       attr_reader :name
-      PATH = Helpers::Enum::PATH
-      Enum = Helpers::Enum
+      # PATH = Helpers::Enum::PATH
+      # Enum = Helpers::Enum
       def initialize (name)
+        (!name.nil? && !name.strip.empty?)  || raise("el nombre del libro no puede ser un vacio")
         @name = Helpers::Sanitizer.string(name)        
       end
       def to_s 
@@ -14,7 +16,8 @@ module RN
         name.upcase
       end
       def path
-        "#{Helpers::Enum::PATH}/#{name}"
+        @path="#{PATH}/#{name}"
+        @path
       end
 
       def save
@@ -24,21 +27,23 @@ module RN
 
       def delete
         Dir.exists?(self.path) || raise(Exceptions::Books::Generico.new('DELETE', "El #{self} no se encontro"))
-        !(name ==Enum::GLOBAL) || raise(Exceptions::Books::Generico.new('', "No se puede eliminar la carpeta global, ya que es una carpeta por defecto del sistema"))
+        !(name ==GLOBAL) || raise(Exceptions::Books::Generico.new('', "No se puede eliminar la carpeta global, ya que es una carpeta por defecto del sistema"))
         FileUtils.rm_rf(self.path)
       end
       
       def self.books_whitout_global
-        (Dir.entries(Enum::PATH).reject {|x| x =~ /global|[\W]/ }).join("\n")
+        (Dir.entries(PATH).reject {|x| x =~ /global|[\W]/ }).join("\n")
       end
       def rename(new_book)
-        (self.name != "global" ) || raise(Exceptions::Books::Generico.new('[ERROR RENAME GLOBAL]', "el #{self} nose se puede renombrar"))
-        File.rename(self.path, new_book.path) 
+        (self.name != "global" ) || raise(Exceptions::Books::Generico.new('[ERROR GLOBAL:]', "el #{self} nose se puede renombrar"))
+        #(Dir.exists?(new_book.path) && Dir.exists?(path)) || raise(Exceptions::Books::NameExists.new(new_book))        
+        !Dir.exists?(new_book.path) || raise(Exceptions::Books::Generico.new('[Error:]', "el #{new_book} ya existe"))               
+        File.rename(self.path, new_book.path)
       end
 
       def exists_note?(note_title)
         #(Dir.entries(ENV['HOME']+"/.my_rns/").select {|f| !File.directory? f} )
-        File.file?("#{Enum.full_path_book(name)}/#{note_title}.rn")
+        File.file?("#{self.path}/#{note_title}.rn")
       end
 
       def notes
@@ -56,7 +61,7 @@ module RN
       end
 
       def self.all_books
-        Dir.entries(Helpers::Enum::PATH).reject {|x| x =~ /[\W]/ }
+        Dir.entries(PATH).reject {|x| x =~ /[\W]/ }
       end
 
 

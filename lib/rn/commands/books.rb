@@ -14,9 +14,10 @@ module RN
           #warn "TODO: Implementar creación del cuaderno de notas con nombre '#{name}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
           # begin 
           #se crea un objeto Book
-          
-          book = Models::Book.new(name)
+          #puts arguments.size
+
           begin
+            book = Models::Book.new(name)
             book.save
           rescue Exceptions::Books::NameExists => e
               puts e
@@ -94,11 +95,13 @@ module RN
           old_book= Models::Book.new(old_name)
           new_book= Models::Book.new(new_name)
           begin
-            old_book.rename(new_book)          
+            old_book.rename(new_book)
           rescue Errno::ENOTEMPTY
             puts "[ERROR:] No se puede renombrar con el nombre #{new_book.name} YA EXISTENTE dicho libro"
           rescue Errno::ENOENT
             puts "[ERROR:] no se encontro el #{old_book}"
+          # rescue Exceptions::Books::NameExists => e
+          #   puts e 
           rescue => e
             puts e
           else

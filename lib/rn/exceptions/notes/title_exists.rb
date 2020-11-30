@@ -13,7 +13,7 @@ module RN
         end
         
         def to_s
-          "[Exeptions: ]#{message}"
+          "#{message}"
         end
 
       end

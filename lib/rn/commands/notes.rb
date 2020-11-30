@@ -201,7 +201,8 @@ module RN
 
         argument :title, required: true, desc: 'Title of the note'        
         option :book, type: :string, desc: 'Book'
-        
+        option :global, type: :boolean, default: false, desc: 'List only notes from the global book'
+
         #option :all, type: :string, desc: 'All'
         example [
             '"file" --book "My book" #report the note "file"  from the book "My book" '
@@ -213,17 +214,24 @@ module RN
         
         def call(title:, **options)
           book = options[:book]
-          #all = options[:all]
-          #warn "TODO: Implementar listado de las notas del libro '#{book}' (global=#{global}).\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
-          #option= option = global  ? 'global' : (book.nil? ? 'all' : book)
-          #option= !book.nil? ? book : 'global' 
-          if !book.nil? && !title.nil?
-            note=Models::Note.new(title,book)
-            puts "reporte de una en un libro que no sea el global"
-          elsif(book.nil? && !title.nil?)
-            puts "repote de una nota de la carpeta global"
+          global = options[:global]
+          option = global  ? 'global' : ((!book.nil? && !book.strip.empty?) ? book : 'other')
+
+          if option != "other"
+            begin
+              note=Models::Note.new(title,book)
+              note.report
+            rescue => e
+              puts e
+            else
+              puts "[sucess:] el reporte esta: #{note.path}"
+            end
           else
             puts "[ERROR:] requiere un argumento valido"
+            puts
+            puts "Los argumentos validos pueden ser:"
+            puts "ruby bin/rn notes report title --global  #indica que {title} es de la carpeta global"
+            puts "ruby bin/rn notes report title --book name_book  #otra carpeta que no es la global"
           end
 
         end
