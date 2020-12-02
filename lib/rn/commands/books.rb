@@ -15,12 +15,14 @@ module RN
           # begin 
           #se crea un objeto Book
           #puts arguments.size
-
+          
           begin
             book = Models::Book.new(name)
             book.save
           rescue Exceptions::Books::NameExists => e
               puts e
+          rescue => e
+            puts e
           else
             puts "[SUCESS:] se creo #{book}" 
           end
@@ -136,13 +138,17 @@ module RN
             else
               puts "Solo se exportaran los archivos que no esten vacios\n"
               puts "Iniciando reporte de: #{book}"
-              book.report_my_notes
-              if ((book.my_notes_not_empty).size).zero? then puts "\n[ups] El #{book} no tiene notas que puedan ser exportadas a PDF \n " end
-              puts "Finalizando reporte de #{book}"
+              begin
+                book.report_my_notes
+                if ((book.my_notes_not_empty).size).zero? then puts "\n[ups] El #{book} no tiene notas que puedan ser exportadas a PDF \n " end
+                puts "Finalizando reporte de #{book}"
+              rescue => e
+                puts e
+              end
             end
           else
               puts "comenzando reporte de todos las notas del sistema"
-              Models::Book.report_all_notes
+              
               puts "Finalizando reporte de todas las notas del sistema"
           end
           

@@ -35,7 +35,6 @@ module RN
         self.persists?
         !book.exists_note?(new_title)  || raise(Exceptions::Notes::Exists.new(Note.new(new_title,book.name)))      
         File.rename(self.path_full, "#{book.path}/#{new_title}.rn")
-
       end
       def self.all_notes
         Models::Book.all_notes

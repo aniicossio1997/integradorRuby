@@ -79,6 +79,7 @@ module RN
 
       def self.report_all_notes
         Models::Book.all_instancias_book.each{ |book| book.report_my_notes(true)}
+        
       end
 
     end
