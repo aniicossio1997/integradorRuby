@@ -63,11 +63,10 @@ module RN
       def path_all_pdf
         "#{PATH}/#{title}_#{book.name}.pdf"
       end
-      def report(save_pdf=nil)
+      def report(actual_book=nil)
         self.persists?
-        #!self.empty? || raise(Exceptions::Notes::Error.new("La nota se encuentra vacia para exportar a pdf"))
-        save_pdf = save_pdf.nil? ? (self.path_full_changed_pdf) : (self.path_all_pdf)
-        `"#{MD2PDF}" "#{self.path_full}" "#{save_pdf}"`
+        actual_book = actual_book.nil? ? (self.path_full_changed_pdf) : (self.path_all_pdf)
+        `"#{MD2PDF}" "#{self.path_full}" "#{actual_book}"`
       end
       
       def content
