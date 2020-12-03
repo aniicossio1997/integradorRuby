@@ -1,13 +1,16 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    colorize (0.8.1)
     colorputs (0.2.3)
     concurrent-ruby (1.1.7)
     dry-cli (0.6.0)
       concurrent-ruby (~> 1.0)
+    github-markup (3.0.5)
+    kramdown (2.3.0)
+      rexml
     pastel (0.8.0)
       tty-color (~> 0.5)
+    rexml (3.2.4)
     tty-color (0.6.0)
     tty-cursor (0.7.1)
     tty-editor (0.6.0)
@@ -26,9 +29,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  colorize
   colorputs
   dry-cli (~> 0.6)
+  github-markup
+  kramdown
   tty-editor (~> 0.6.0)
 
 RUBY VERSION

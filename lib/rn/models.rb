@@ -1,3 +1,4 @@
+require 'github/markup'
 module RN
   module Models
     autoload :Book, 'rn/models/book'

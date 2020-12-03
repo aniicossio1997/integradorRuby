@@ -1,3 +1,5 @@
+require 'github/markup'
+
 module RN
   module Models
     class Note
@@ -57,16 +59,19 @@ module RN
       def empty?
         File.zero?(self.path_full)
       end
-      def path_full_changed_pdf
-        "#{book.path}/#{title}_#{book.name}.pdf"
+      def path_full_changed_html
+        "#{book.path}/#{title}_#{book.name}.html"
       end
-      def path_all_pdf
-        "#{PATH}/#{title}_#{book.name}.pdf"
+      def path_all_html
+        "#{PATH}/#{title}_#{book.name}.html"
       end
+      
       def report(actual_book=nil)
         self.persists?
-        actual_book = actual_book.nil? ? (self.path_full_changed_pdf) : (self.path_all_pdf)
-        `"#{MD2PDF}" "#{self.path_full}" "#{actual_book}"`
+        actual_book = actual_book.nil? ? (self.path_full_changed_html) : (self.path_all_html)
+        # `"#{MD2html}" "#{self.path_full}" "#{actual_book}"`
+        contents_html=GitHub::Markup.render_s(GitHub::Markups::MARKUP_MARKDOWN,self.content)
+        File.write(actual_book, contents_html)
       end
       
       def content

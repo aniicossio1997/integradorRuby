@@ -7,3 +7,6 @@ gem 'dry-cli', '~> 0.6'
 gem "tty-editor", "~> 0.6.0"
 
 gem "colorputs"
+
+gem "github-markup"
+gem "kramdown"

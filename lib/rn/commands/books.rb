@@ -148,7 +148,7 @@ module RN
             end
           else
               puts "comenzando reporte de todos las notas del sistema"
-              
+              Models::Book.report_all_notes
               puts "Finalizando reporte de todas las notas del sistema"
           end
           
