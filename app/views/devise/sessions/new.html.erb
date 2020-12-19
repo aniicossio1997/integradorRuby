@@ -1,0 +1,29 @@
+<div class= "container-fluid  h-100 ">
+<div class="d-flex justify-content-center ">
+
+<div>
+<h2>Log in</h2>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="input-group mb-3">
+    <%= f.label :email, class:'input-group-text' %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class:'form-control' %>
+  </div>
+
+  <div class="input-group mb-3">
+    <%= f.label :password, class: 'input-group-text' %><br />
+    <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
+  </div>
+  <br>
+
+  <div class="actions">
+    <%= f.submit "Log in" , class: 'btn btn-primary form-control' %>
+  </div>
+        <%= render "devise/shared/links" %>
+
+<% end %>
+</div>
+</div>
+</div>
+<br/>
