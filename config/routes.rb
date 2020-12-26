@@ -5,10 +5,12 @@ Rails.application.routes.draw do
   scope module: :logged_out do
       root to: 'home#welcome'
   end
+  
  
   namespace :logged_in do
     root to: 'main#welcome'
+    resources :books
   end
+  match '*path', to: redirect('/'), via: :all
 
-  #root to: 'logged_in/home#welcome'
 end

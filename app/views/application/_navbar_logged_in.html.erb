@@ -2,15 +2,15 @@
    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
   
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">EverBooks</a>
+    <%= image_tag('logo.png', size:'150x50', id: 'js-logo', class: 'navbar-brand' )%>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     
     <div class="collapse navbar-collapse nav justify-content-end"  id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" aria-current="page" href="#">Home</a>
-        <%= link_to 'Books', new_user_session_url,{method: :get, class: 'nav-link'}%>
+        <%= link_to 'Home', logged_in_root_path,{method: :get, class: 'nav-link'}%>
+        <%= link_to 'Books', logged_in_books_path,{method: :get, class: 'nav-link'}%>
         <%= link_to 'Notes',new_user_registration_url, {method: :get, class:'nav-link'}%>
          <%= link_to 'Cerrar Sesión', destroy_user_session_path, {method: :delete, class: 'nav-link'} %>
       </div>

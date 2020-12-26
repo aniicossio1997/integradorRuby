@@ -12,5 +12,8 @@ class ApplicationController < ActionController::Base
     (resource.id == current_user.id) ? logged_in_root_path : root_path
   end
 
+  def after_sign_out_path_for(resource_or_scope) 
+    user_signed_in? ? logged_in_root_path : root_path
+  end
 
 end

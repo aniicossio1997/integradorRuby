@@ -17,14 +17,12 @@
    <%= render 'navbar_logged_out' %>
     <!-- Begin page content -->
     <main class="flex-shrink-0">
-      <div class="container">
+      <div class="container-fluid">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
      <% flash.each do |key, value| %>
         <%= content_tag :div, value, class: "flash #{key}" %>
       <% end %>
-
-
         <%= yield %>
       </div>
     </main>

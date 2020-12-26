@@ -64,3 +64,4 @@ gem 'popper_js'
 
 gem 'hirb'
 
+gem 'rails-i18n', '~> 6.0.0' # For 6.0.0 or higher

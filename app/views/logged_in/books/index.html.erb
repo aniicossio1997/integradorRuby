@@ -1,0 +1,45 @@
+<%= render 'sub_nav' %>
+
+
+<table class="table table-hover">
+  <thead class="black white-text text-muted">
+    <tr class="border-bottom-0">
+      <th class="fw-lighter">name</th>
+      <th class="fw-lighter">Date create</th>
+      <th class="fw-lighter">Options</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  <% for i in 0..10 %>
+   
+ 
+    <tr>
+      <td>
+      <div class="row">
+      <div class="col-1">
+        <i class="large material-icons color-book">folder</i>
+      </div>
+      <div class="col-6">
+      Mark
+      </div>
+      
+      
+      </td>
+      <td>20/8/2020</td>
+      <td>
+      <a href="#" class="small">
+      edit
+      </a>
+      <a href="#" class="small">
+      show
+      </a>
+      <a href="#" class="small">
+      eliminar
+      </a>
+      </td>
+    </tr>
+ <% end %>
+  </tbody>
+</table>
+
