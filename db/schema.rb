@@ -14,21 +14,19 @@ ActiveRecord::Schema.define(version: 2020_12_18_051939) do
 
   create_table "books", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_books_on_name", unique: true
     t.index ["user_id"], name: "index_books_on_user_id"
   end
 
   create_table "notes", force: :cascade do |t|
     t.integer "book_id", null: false
-    t.string "title"
+    t.string "title", null: false
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["book_id"], name: "index_notes_on_book_id"
-    t.index ["title"], name: "index_notes_on_title", unique: true
   end
 
   create_table "users", force: :cascade do |t|
