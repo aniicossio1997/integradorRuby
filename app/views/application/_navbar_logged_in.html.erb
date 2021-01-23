@@ -11,7 +11,7 @@
       <div class="navbar-nav">
         <%= link_to 'Home', logged_in_root_path,{method: :get, class: 'nav-link'}%>
         <%= link_to 'Books', logged_in_books_path,{method: :get, class: 'nav-link'}%>
-        <%= link_to 'Notes',new_user_registration_url, {method: :get, class:'nav-link'}%>
+        <%= link_to 'Notes', logged_in_notes_path, {method: :get, class: 'nav-link'}%>
          <%= link_to 'Cerrar Sesión', destroy_user_session_path, {method: :delete, class: 'nav-link'} %>
       </div>
     </div>

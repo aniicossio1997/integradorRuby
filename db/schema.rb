@@ -22,11 +22,13 @@ ActiveRecord::Schema.define(version: 2020_12_18_051939) do
 
   create_table "notes", force: :cascade do |t|
     t.integer "book_id", null: false
+    t.integer "user_id", null: false
     t.string "title", null: false
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["book_id"], name: "index_notes_on_book_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,4 +45,5 @@ ActiveRecord::Schema.define(version: 2020_12_18_051939) do
 
   add_foreign_key "books", "users"
   add_foreign_key "notes", "books"
+  add_foreign_key "notes", "users"
 end

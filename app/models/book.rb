@@ -7,7 +7,7 @@ class Book < ApplicationRecord
   validate  :not_repeated_by_user
 
   def to_s
-    name
+    self.name
   end
 
   #protected

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   namespace :logged_in do
     root to: 'main#welcome'
     resources :books
+    resources  :notes
   end
   match '*path', to: redirect('/'), via: :all
 
