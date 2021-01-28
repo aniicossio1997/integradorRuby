@@ -1,0 +1,3 @@
+class LoggedOutController < ApplicationController
+
+end

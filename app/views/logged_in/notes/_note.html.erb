@@ -1,0 +1,21 @@
+<tr id='<%= dom_id(note) %>'>
+  <td>
+  <div class="row">
+  <div class="col-1">
+    <i class="large material-icons color-book">description</i>
+  </div>
+  <div class="col-6">
+  <%= note.title %>
+  </div>
+  
+  
+  </td>
+  <td><%= note.created_at %></td>
+  <td>
+  <%= link_to 'show', logged_in_note_path(note), class: 'btn btn-sm btn-outline-info text-right' %>
+  <%= link_to 'Editar', edit_logged_in_note_path(note), class: 'btn btn-sm btn-outline-warning' %>
+
+
+  </td>
+</tr>
+

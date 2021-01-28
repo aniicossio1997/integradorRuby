@@ -1,0 +1,83 @@
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+  /* Custom page CSS
+  -------------------------------------------------- */
+  /* Not required for template or sticky footer method. */
+  
+  main > .container {
+  padding: 60px 15px 0;
+  }
+  footer{
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    height:50px;
+    width:100%;
+  }
+  .color-book{
+    color: #8cf3b4;
+    font-size: 150%;
+  
+  }
+  
+  html {
+    min-height: 100%;
+    position: relative;
+  }
+  body {
+    margin: 0;
+    margin-bottom: 40px;
+    background-color: #ffffff;
+  }
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    color: white;
+  }
+  
+  
+  
+  #loginbox {
+    margin-top: 30px;
+  }
+  
+  #loginbox > div:first-child {        
+    padding-bottom: 10px;    
+  }
+  
+  .iconmelon {
+    display: block;
+    margin: auto;
+  }
+  
+  #form > div {
+    margin-bottom: 25px;
+  }
+  
+  #form > div:last-child {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .panel {    
+    background-color: transparent;
+  }
+  
+  .panel-body {
+    padding-top: 30px;
+    background-color: rgba(2555,255,255,.3);
+  }
+  
