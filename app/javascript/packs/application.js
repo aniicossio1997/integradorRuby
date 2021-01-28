@@ -24,6 +24,7 @@
 // Rails.start()
 // Turbolinks.start()
 // ActiveStorage.start()
+//= require bootstrap
 
 import 'bootstrap/dist/js/bootstrap.bundle'
 import 'jquery/dist/jquery.slim'
@@ -31,6 +32,11 @@ import 'popper.js/dist/esm/popper'
 
 require("@rails/ujs").start()
 require("@rails/activestorage").start()
+import Rails from '@rails/ujs'; Rails.start()
+import JQuery from 'jquery';
+window.$ = window.JQuery = JQuery;
+
 console.log('Hello from application.js :v ')
+
 
 

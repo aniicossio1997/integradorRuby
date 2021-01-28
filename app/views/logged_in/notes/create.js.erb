@@ -1,0 +1,4 @@
+$('#modal .modal-content').html('');
+$('#notes_container').append('<%= j render 'note', note: @note %>');
+$('#modal').modal('hide');
+$('#flash_messages_container').replaceWith('<%= j render 'flash_message' %>');

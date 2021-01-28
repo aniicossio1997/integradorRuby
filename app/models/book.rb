@@ -10,6 +10,11 @@ class Book < ApplicationRecord
     self.name
   end
 
+  def self.books_user_concurent
+    @books = user_signed_in? ? current_user.books : User.new.books
+    books
+  end
+
   #protected
 
   def not_repeated_by_user

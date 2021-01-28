@@ -1,0 +1,33 @@
+<%= form_with model: [:logged_in, @note],local:true do |f| %>
+    <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLabel">
+        <%= @note.persisted? ? "Editar nota #{@note.id}" : 'Nueva nota' %>
+        </h5>
+
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+        <%= f.label :title, 'Nombre' %>
+        <%= f.text_field :title, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+        <%= f.label :book_id, 'Book' %>
+        <%= f.collection_select :book_id, current_user.books, :id, :name, {include_blank: 'global'}, class:'form-control', prompt: true%>
+       
+        </div>
+
+
+        <div class="form-group">
+        <%= f.label :content, 'contenido' %>
+        <%= f.text_area :content, class: 'form-control'%>
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      <%= f.submit 'Guardar', class: 'btn btn-primary' %>
+      </div>
+</div>
+<% end %>

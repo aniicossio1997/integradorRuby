@@ -31,6 +31,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  
 end
 
 group :development do
@@ -57,7 +58,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 
-gem  'bootstrap' ,  '~> 5.0.0.alpha3'
+gem  'bootstrap'
 
 gem 'jquery-rails'
 gem 'popper_js'
@@ -65,3 +66,4 @@ gem 'popper_js'
 gem 'hirb'
 
 gem 'rails-i18n', '~> 6.0.0' # For 6.0.0 or higher
+gem 'pry'
