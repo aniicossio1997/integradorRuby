@@ -5,13 +5,14 @@
         <%= @note.title.upcase %>
     </div>
     <div class="card-body">
-        <h4 class="card-title text-secondary"><%= @note.book %></h4>
-        <p class="card-text"><%= @note.content %></p>
+        <b class="card-title text-secondary"><%= @note.book %></b>
+        <p class="card-text"><%= @note.markdown_content.html_safe %></p>
         
     </div>
     <div class="card-footer text-muted text-center">
-        <p>fecha creacion: <%= @note.created_at %> </p>
-        <%= link_to 'volver', logged_in_notes_path, class:'btn btn-primary float-right' %>
+        <p><%= t(:date_create) + ": "+ date_create(@note) %> </p>
+        <p><%= t(:date_update) + ": " +date_update(@note) %> </p>
+        <%= link_to t(:back), logged_in_notes_path, class:'btn btn-primary float-right' %>
     </div>
     </div>
 </div>

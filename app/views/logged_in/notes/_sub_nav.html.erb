@@ -1,0 +1,32 @@
+<div class="d-flex bd-highlight">
+  <div class="p-2 bd-highlight">
+  <%= show_link(t(:new), new_logged_in_note_path,"note_add") %>
+  </div>
+
+  <div class="p-2 bd-highlight">
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= t(:Download_html) %>
+      </button>
+      <div class="dropdown-menu">
+        <%= link_to t(:notes_without_books), download_global_logged_in_notes_path,class: 'dropdown-item' %>
+        <%= link_to t(:all),download_all_logged_in_notes_path, class: 'dropdown-item' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-2 bd-highlight">
+    <div class="btn-group">
+      <button type="button" class="btn  btn-outline-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= t(:Delete) %>
+      </button>
+      <div class="dropdown-menu">
+        <%= link_to t(:Delete_notes_without_book), destroy_global_logged_in_notes_path, method: :delete, data: { confirm: t(:message_confirmation,models: "las notas sin cuadernos asociados/cuaderno global?") }, class: 'dropdown-item' %>
+        <%= link_to t(:all),destroy_all_logged_in_notes_path, method: :delete, data: { confirm: t(:message_confirmation,models: "todas las notas ? ")} ,class: 'dropdown-item' %>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="ml-auto p-2 bd-highlight"><%= render 'filter' %></div>
+</div>

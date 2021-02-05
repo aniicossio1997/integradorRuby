@@ -10,7 +10,19 @@ module MyApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+    #config.i18n.default_locale = :es
+    config.time_zone = "GMT‑3"
+    config.active_record.default_timezone = :gmt‑3
+    #config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
 
+    config.i18n.available_locales = %i[en es]
+    config.i18n.default_locale = :es
+    config.to_prepare do
+      # Configure single controller layout
+      Devise::SessionsController.layout 'logged_out'
+      Devise::RegistrationsController.layout 'logged_out'
+    end
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

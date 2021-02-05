@@ -9,10 +9,10 @@
     
     <div class="collapse navbar-collapse nav justify-content-end"  id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <%= link_to 'Home', logged_in_root_path,{method: :get, class: 'nav-link'}%>
-        <%= link_to 'Books', logged_in_books_path,{method: :get, class: 'nav-link'}%>
-        <%= link_to 'Notes', logged_in_notes_path, {method: :get, class: 'nav-link'}%>
-         <%= link_to 'Cerrar Sesión', destroy_user_session_path, {method: :delete, class: 'nav-link'} %>
+        <%= link_to t(:home), logged_in_root_path,{method: :get, class: 'nav-link'}%>
+        <%= link_to t(:books), logged_in_books_path,{method: :get, class: 'nav-link'}%>
+        <%= link_to t(:notes), logged_in_notes_path, {method: :get, class: 'nav-link'}%>
+         <%= link_to t(:signed_out), destroy_user_session_path, {method: :delete, class: 'nav-link'} %>
       </div>
     </div>
   </div>

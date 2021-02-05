@@ -1,0 +1,8 @@
+es:
+  sucess: 'se ha %{action} %{models}'
+  error: Lo sentimos hubo un error al %{action} %{models}
+  error_download: 'No posee notas'
+  message_sucess_all_note: 'Se ha elimanado todas las notas'
+  message_error_all_note: 'Usted no tiene notas asociadas'
+  message_sucess_global_note: ' Se ha eliminado todas las notas que no tenian un cuaderno asociado/global'
+  message_error_global_note: ' No hay notas en el cuaderno global'

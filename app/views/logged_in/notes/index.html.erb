@@ -1,30 +1,20 @@
-<br>
-<div class="d-flex flex-row bd-highlight mb-3">
-  <div class="p-2 bd-highlight"><h2> Notes </h2></div>
-  <div class="p-2 bd-highlight"><%= link_to 'nuevo', new_logged_in_note_path, class: 'btn btn-primary'%></div>
-</div>
-<%= render 'flash_message' %>
 
-
+  <h1 class="d-flex justify-content-center"> <%= t(:notes) %> </h1>
+  <hr>
+  <%= render 'sub_nav' %>
 <table class="table table-hover">
   <thead class="black white-text text-muted">
     <tr class="border-bottom-0">
-      <th class="fw-lighter">Title</th>
-      <th class="fw-lighter">Date create</th>
-      <th class="fw-lighter">Options</th>
+    <th class="fw-lighter"><%= t(:name) %></th>
+    <th class="fw-lighter"><%= t(:date_create)%></th>
+    <th class="fw-lighter"><%= t(:date_update)%></th>
+    <th class="fw-lighter"><%= t(:options) %></th>
     </tr>
   </thead>
   <tbody id="notes_container">
-  <%= render @notes %>
+  <%= render @presenter.notes %>
 
   </tbody>
 </table>
-
-<!-- Modal -->
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content"> 
-    
-    </div>
-  </div>
-</div>
+<br>
+<%= will_paginate @presenter.notes%>

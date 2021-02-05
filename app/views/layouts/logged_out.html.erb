@@ -9,20 +9,17 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <%= stylesheet_pack_tag 'application', media: 'all' %>
 
   </head>
 
  <body class="d-flex flex-column h-100">
     
    <%= render 'navbar_logged_out' %>
-    <!-- Begin page content -->
     <main class="flex-shrink-0">
       <div class="container-fluid">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-     <% flash.each do |key, value| %>
-        <%= content_tag :div, value, class: "flash #{key}" %>
-      <% end %>
+      <%= render 'flash_message'%>
+
         <%= yield %>
       </div>
     </main>
