@@ -12,6 +12,12 @@ class User < ApplicationRecord
   def order_books
     self.books.order(:name)
   end
+  def books_all
+    others=Array.new
+    others+=(self.order_books)
+    others.unshift(Book.new(name:"Archivos sin carpeta/global",id:0,user:self))
+    others
+  end
   def books_count
     self.books.count
   end

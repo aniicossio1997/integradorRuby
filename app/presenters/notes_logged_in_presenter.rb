@@ -22,7 +22,7 @@ class NotesLoggedInPresenter
   
     def filter_params
       if @params[:notes_filter]
-        @params.require(:notes_filter).permit(:user, :sort,:global)
+        @params.require(:notes_filter).permit(:user, :sort,:global,:book_id)
       else
         {}
       end

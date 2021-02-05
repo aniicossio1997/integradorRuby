@@ -1,4 +1,5 @@
 es:
+  delete: Eliminar
   user: usuario
   user_html: "<p> Usuario: %{user}</p>"
   date_html: "<p> Fecha de creacion: %{date}</p>"
@@ -31,6 +32,7 @@ es:
   sign_up: Registrarse
   new_book: Nuevo cuaderno
   edit_book: Editar Cuaderno
+  download_to_html: Descargar a html
   content_footer: "© 2021 Copyright"
   content_footer_2: "Desarrollado en Taller de Tecnologías de Producción de Software"
   

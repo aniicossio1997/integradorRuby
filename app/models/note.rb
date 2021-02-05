@@ -8,6 +8,7 @@ class Note < ApplicationRecord
 
 
   scope :without_book, -> { where(book:nil)}
+  scope :only_book, ->(book) { where(book:book)}
   scope :sort_name, ->(sort) { order(title: sort) }
   scope :notes_user_logged, ->(current_user) {where(user:current_user)}
   scope :notes_global, ->(user) {where(book:nil, user:user)}
