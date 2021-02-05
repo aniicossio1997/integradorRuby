@@ -2,13 +2,13 @@
 <%= form_with model: [:logged_in, @book] do |f| %>
   <div class="modal-header">
     <h4 class="modal-title" id="exampleModalLabel">
-      <%= @book.persisted? ? "Editar nota" : 'Nuevo nota' %>
+      <%= @book.persisted? ? I18n.t(:edit_book) : I18n.t(:new_book) %>
     </h4>
 
   </div>
       <div class="modal-body">
         <div class="form-group">
-        <%= f.label :name, 'Nombre' %>
+        <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control' %>
         </div>
       
@@ -16,7 +16,7 @@
       </div>
       <div class="modal-footer">
       <%= link_to 'volver', logged_in_books_path, class: 'btn btn-secondary' %>
-      <%= f.submit 'Guardar', class: 'btn btn-primary' %>
+      <%= f.submit class: 'btn btn-primary' %>
       </div>
 </div>
 <% end %>

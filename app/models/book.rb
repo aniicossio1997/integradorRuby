@@ -1,10 +1,12 @@
 class Book < ApplicationRecord
   belongs_to :user
-  has_many :notes, inverse_of: :book
+  has_many :notes, dependent: :delete_all, inverse_of: :book
+
   validates_associated :notes
 
   validates :name, presence: true, length: { maximum: 255 }
   validates_uniqueness_of :name, scope: :user_id
+  scope :books_user_logged, ->(current_user) {where(user:current_user)}
 
   #validate  :not_repeated_by_user
 
@@ -16,6 +18,7 @@ class Book < ApplicationRecord
     @books = user_signed_in? ? current_user.books : User.new.books
     books
   end
+
 
   #protected
 

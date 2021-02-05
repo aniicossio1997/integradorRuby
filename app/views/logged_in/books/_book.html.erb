@@ -10,10 +10,13 @@
   
   
   </td>
-  <td><%= book.created_at%></td>
+  <td><%= date_create(book)%></td>
+  <td><%= date_update(book)%></td>
   <td>
-  <%= link_to 'show', logged_in_book_path(book), class: 'btn btn-sm btn-outline-info text-right' %>
-  <%= link_to 'Editar', edit_logged_in_book_path(book), class: 'btn btn-sm btn-outline-warning' %>
+  <%= link_to t(:show), logged_in_book_path(book), class: 'btn btn-sm btn-outline-info text-right' %>
+  <%= link_to t(:download_to_html), download_logged_in_book_path(book), class: 'btn btn-sm btn-outline-success text-right' %>
+  <%= link_to t(:edit), edit_logged_in_book_path(book), class: 'btn btn-sm btn-outline-warning' %>
+  <%= link_to t(:delete), logged_in_book_path(book), method: :delete, data: { confirm: t(:message_confirmation, models: book) }, class: 'btn btn-sm btn-outline-danger' %>
 
   </td>
 </tr>

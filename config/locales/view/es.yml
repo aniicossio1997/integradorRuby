@@ -1,0 +1,40 @@
+es:
+  delete: Eliminar
+  user: usuario
+  user_html: "<p> Usuario: %{user}</p>"
+  date_html: "<p> Fecha de creacion: %{date}</p>"
+  total_books: "<p> Cantidad de cuadernos: %{user_count}</p>"
+  total_notes: "<p> Cantidad de notas: %{user_count}</p>"
+  show_all: Ver todo
+  find: buscar
+  order_title: ordenar por titulo 
+  back: Volver
+  message_confirmation: 'Esta seguro de eliminar %{models}'
+  export_html: Descargar a html
+  export_html_all: Descargar todo
+  export_html_only_global: Descargar global
+  characters_minimum: caracteres mínimo
+  home: Inicio
+  name: Nombre
+  title: Titulo
+  date_create: Fecha de creación
+  date_update: Fecha de modificación
+  options: Opciones
+  books: Cuadernos
+  notes: Notas
+  edit: "Editar"
+  new: Nuevo
+  show: Ver
+  save: Guardar
+  login: Iniciar sesion
+  signed_out: Cerrar sesión
+  log_in: Iniciar sesión
+  sign_up: Registrarse
+  new_book: Nuevo cuaderno
+  edit_book: Editar Cuaderno
+  download_to_html: Descargar a html
+  notes_without_books: Notas sin cuadernos
+  all: Todo
+  content_footer: "© 2021 Copyright"
+  content_footer_2: "Desarrollado en Taller de Tecnologías de Producción de Software"
+  

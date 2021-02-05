@@ -58,12 +58,15 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 
-gem 'bootstrap', '~> 4.3.1'
-
-gem 'jquery-rails'
-gem 'popper_js'
-
 gem 'hirb'
 
 gem 'rails-i18n'
 gem 'pry'
+
+#gem 'pagy', '~> 3.8' , '>= 3.8.3' # omit patch digit and use the latest if possible
+gem 'will_paginate', '~> 3.1.1'
+
+gem 'will_paginate-bootstrap4'
+gem 'redcarpet'
+gem 'rubyzip'
+gem 'zip-zip'

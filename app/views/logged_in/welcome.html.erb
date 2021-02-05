@@ -1,16 +1,17 @@
  <section class="py-2 text-center container">
     <div class="row py-lg-2">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <small>
-        hello usted se logueo pero logueo=  <%= user_signed_in? %>
-        </small>
+
         <h1 class="fw-light">welcome to EveBooks</h1>
         <p class="lead text-muted">
         Something short and leading
          about the collection below—its
           contents, the creator, etc. Make it short and sweet, but not too short 
           so folks don’t simply skip over it entirely.</p>
-        
+          <%= raw t('user_html',user: current_user) %>
+          <%= raw  t('total_books', user_count:current_user.books_count)%>
+          <%= raw  t('total_notes', user_count:current_user.notes_count)%>
+  
       </div>
     </div>
  </section>
