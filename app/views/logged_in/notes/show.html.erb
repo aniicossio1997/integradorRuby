@@ -1,0 +1,17 @@
+<br><br>
+<div class="container-fluid">
+    <div class="card ">
+    <div class="card-header text-center">
+        <%= @note.title.upcase %>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title text-secondary"><%= @note.book %></h4>
+        <p class="card-text"><%= @note.content %></p>
+        
+    </div>
+    <div class="card-footer text-muted text-center">
+        <p>fecha creacion: <%= @note.created_at %> </p>
+        <%= link_to 'volver', logged_in_notes_path, class:'btn btn-primary float-right' %>
+    </div>
+    </div>
+</div>

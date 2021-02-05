@@ -1,0 +1,19 @@
+<tr>
+  <td>
+  <div class="row">
+  <div class="col-1">
+    <i class="large material-icons color-book">folder</i>
+  </div>
+  <div class="col-6">
+  <%= book.name %>
+  </div>
+  
+  
+  </td>
+  <td><%= book.created_at%></td>
+  <td>
+  <%= link_to 'show', logged_in_book_path(book), class: 'btn btn-sm btn-outline-info text-right' %>
+  <%= link_to 'Editar', edit_logged_in_book_path(book), class: 'btn btn-sm btn-outline-warning' %>
+
+  </td>
+</tr>
