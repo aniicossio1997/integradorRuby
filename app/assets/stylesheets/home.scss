@@ -81,4 +81,26 @@
     padding-top: 30px;
     background-color: rgba(2555,255,255,.3);
   }
-  
+  @media (max-width: 993px) {
+    // .navbar-expand-lg .navbar-nav .nav-link {
+    //   text-align: center;
+    //   font-size: 1.5rem;
+    //   padding: 5px;
+    // }
+    #ul_max{
+      padding: 0; 
+      margin: 0;
+    }
+    #ul_max > li{
+      text-align: center;
+      display: block;
+      border-radius: 3px;
+      transition-duration: 0.4s;
+      font-size: 1.3em;
+    }
+    #ul_max > li:hover {
+      background: rgb(134, 133, 133);
+      color:white;
+      
+    }
+  }

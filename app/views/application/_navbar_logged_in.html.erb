@@ -1,21 +1,27 @@
-  <header>
-   <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
-  
-  <div class="container-fluid">
-    <%= image_tag('logo.png', size:'150x50', id: 'js-logo', class: 'navbar-brand' )%>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse nav justify-content-end"  id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <%= link_to t(:home), logged_in_root_path,{method: :get, class: 'nav-link'}%>
-        <%= link_to t(:books), logged_in_books_path,{method: :get, class: 'nav-link'}%>
-        <%= link_to t(:notes), logged_in_notes_path, {method: :get, class: 'nav-link'}%>
-         <%= link_to t(:signed_out), destroy_user_session_path, {method: :delete, class: 'nav-link'} %>
-      </div>
-    </div>
-  </div>
+<header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <%= image_tag('logo.png', size:'150x50', id: 'js-logo', class: 'navbar-brand' )%>
 
-</nav>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="nav navbar-nav ml-auto" id="ul_max">
+      <li class="nav-item">
+      <%= link_to t(:home), logged_in_root_path,{method: :get, class: 'nav-link'}%>
+      </li>
+      <li class="nav-item">
+      <%= link_to t(:books), logged_in_books_path,{method: :get, class: 'nav-link'}%>
+      </li>
+      <li class="nav-item">
+      <%= link_to t(:notes), logged_in_notes_path, {method: :get, class: 'nav-link'}%>
+      </li>
+      <li class="nav-item">
+      <%= link_to t(:signed_out), destroy_user_session_path, {method: :delete, class: 'nav-link'} %>
+      </li>
+
+    </ul>
+    </div>
+  </nav>
+  
 </header>
