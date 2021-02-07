@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :books do
       member do
         get :download
-        get :destroy_all_notes
+        delete :destroy_all_notes
       end
     end
     resources  :notes do
