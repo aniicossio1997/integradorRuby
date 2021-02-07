@@ -12,7 +12,7 @@ user = User.create(email:"user@gmail.com",password:1234)
      book.notes.create(title:"nota-#{j}",content: "- lista ", user:user)
    end
  end
- (1..10).each do |i|
+ (1..4).each do |i|
     Note.create(user:user,title:"nota-sin", content: "- nota sin cuaderno")
  end
     
