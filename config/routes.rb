@@ -12,8 +12,8 @@ Rails.application.routes.draw do
     resources :books do
       member do
         get :download
+        get :destroy_all_notes
       end
-      delete :destroy_all, on: :collection
     end
     resources  :notes do
       member do

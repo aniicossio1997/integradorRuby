@@ -32,6 +32,7 @@ module LoggedIn
       def edit;end
 
       def update
+        byebug
         if @note.update(note_params)
           flash[:notice] = t(:sucess, action: :editado, models: :nota)
           redirect_to logged_in_notes_path

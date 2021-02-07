@@ -1,12 +1,15 @@
 module LoggedIn
   class BooksController < LoggedInController
     include Download
+    include Destroy
+
     before_action :set_book, only: [
       :show,
       :edit,
       :update,
       :destroy,
       :download,
+      :destroy_all_notes,
     ]
 
     def index
@@ -29,7 +32,12 @@ module LoggedIn
         render  :new
       end
     end
-    def show; end
+    def show
+      if @book.notes.empty?
+        flash[:alert] = I18n.t(:error_book_empty)
+        redirect_to logged_in_books_path
+      end
+    end
 
     def edit; end
 
@@ -65,6 +73,12 @@ module LoggedIn
         redirect_to logged_in_books_path and return
       end
 
+    end
+
+    def destroy_all_notes
+      notes= @book.notes
+      destroy_cascada(notes,I18n.t(:message_sucess_all_note),I18n.t(:message_error_all_note))
+      redirect_to logged_in_books_path
     end
 
     private

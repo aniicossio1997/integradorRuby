@@ -12,7 +12,8 @@
     <div class="card-footer text-muted text-center">
         <p><%= t(:date_create) + ": "+ date_create(@note) %> </p>
         <p><%= t(:date_update) + ": " +date_update(@note) %> </p>
-        <%= link_to t(:back), logged_in_notes_path, class:'btn btn-primary float-right' %>
+        <a href="javascript: history.go(-1)" class="btn btn-primary float-right"><%= t(:back) %></a>
     </div>
     </div>
 </div>
+<br>
