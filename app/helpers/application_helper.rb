@@ -9,11 +9,11 @@ module ApplicationHelper
   end
 
   def date_create(object)
-    object.created_at.strftime("%-d de %B de %Y %H:%Mhs")
+    object.created_at.strftime("%-d/%-m/%Y %H:%Mhs")
   end
 
   def date_update(object)
-    object.updated_at.strftime("%-d de %B de %Y %H:%Mhs")
+    object.updated_at.strftime("%-d/%-m/%Y %Y %H:%Mhs")
   end
 
   def get_flash_class(key)

@@ -24,7 +24,7 @@ class Note < ApplicationRecord
 
   def markdown
     renderer = Redcarpet::Render::HTML.new(prettify: true)
-    (Redcarpet::Markdown.new(renderer, fenced_code_blocks: true)).render("###### #{created_at}<br>\n**#{title_for_download}**<br>\n #{content}")
+    (Redcarpet::Markdown.new(renderer, fenced_code_blocks: true)).render("###### #{created_at}<br>\n**#{title}**<br>\n #{markdown_content}")
   end
 
   def markdown_content
