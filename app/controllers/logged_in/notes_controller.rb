@@ -67,6 +67,7 @@ module LoggedIn
 
       def download
         send_data(@note.markdown, filename:"#{@note.title_for_download}.html", type: "html", disposition: "attachment")
+        
       end
 
       def download_global
