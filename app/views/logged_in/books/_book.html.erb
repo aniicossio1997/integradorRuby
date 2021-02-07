@@ -18,8 +18,7 @@
     <%= link_to t(:show), logged_in_book_path(book, source: "book_show"), class: 'btn btn-sm btn-outline-info text-right' %>
     </div>
     <div class="p-1 bd-highlight">
-    <%= show_link(t(:html), download_logged_in_book_path(book), "file_download","btn-sm btn-outline-success","_blank") %>
-
+    <%= show_link(t(:html), download_logged_in_book_path(book), "file_download","btn-sm btn-outline-success","_self") %>
     </div>
     <div class="p-1 bd-highlight">
     <%= link_to t(:edit), edit_logged_in_book_path(book), class: 'btn btn-sm btn-outline-warning' %>

@@ -15,6 +15,7 @@
         <% if  !params[:source].nil? %>
         <a href="javascript: history.go(-1)" class="btn btn-primary float-right"><%= t(:back) %></a>
         <% else %>
+        <br>
         <%= link_to t(:back),logged_in_notes_path, class:'btn btn-primary float-right'%>
         <% end %>
     </div>

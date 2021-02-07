@@ -9,8 +9,8 @@
         <%= t(:download_to_html) %>
       </button>
       <div class="dropdown-menu">
-        <%= link_to t(:notes_without_books), download_global_logged_in_notes_path,class: 'dropdown-item',target: '_blank' %>
-        <%= link_to t(:all),download_all_logged_in_notes_path, class: 'dropdown-item',target: '_blank' %>
+        <%= link_to t(:notes_without_books), download_global_logged_in_notes_path,class: 'dropdown-item',target: '_self' %>
+        <%= link_to t(:all),download_all_logged_in_notes_path, class: 'dropdown-item',target: '_self' %>
       </div>
     </div>
   </div>
