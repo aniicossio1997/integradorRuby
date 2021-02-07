@@ -1,10 +1,10 @@
 es:
   delete: Eliminar
   user: usuario
-  user_html: "<p> Usuario: %{user}</p>"
+  user_html: "<p> Usuario: <b>%{user}</b></p>"
   date_html: "<p> Fecha de creacion: %{date}</p>"
-  total_books: "<p> Cantidad de cuadernos: %{user_count}</p>"
-  total_notes: "<p> Cantidad de notas: %{user_count}</p>"
+  total_books: "<p> Total de cuadernos: <b>%{user_count}</b></p>"
+  total_notes: "<p> Total de notas: <b>%{user_count}</b></p>"
   show_all: Ver todo
   find: buscar
   order_title: ordenar por titulo 
