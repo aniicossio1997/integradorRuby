@@ -12,7 +12,13 @@
     </tr>
   </thead>
   <tbody id="notes_container">
+  <% if !@presenter.notes.empty? %>
   <%= render @presenter.notes %>
+<% else %>
+<div class="alert alert-warning" role="alert">
+ Usted no tiene notas notas asocidas
+</div>
+<% end %>
 
   </tbody>
 </table>
