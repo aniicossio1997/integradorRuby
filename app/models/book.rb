@@ -1,31 +1,27 @@
 class Book < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, inverse_of: :books
   has_many :notes, dependent: :delete_all, inverse_of: :book
+  before_validation :sanitizer_name
 
   validates_associated :notes
 
   validates :name, presence: true, length: { maximum: 255 }
   validates_uniqueness_of :name, scope: :user_id
+
   scope :books_user_logged, ->(current_user) {where(user:current_user)}
-
-  #validate  :not_repeated_by_user
-
+  validate :check_name
   def to_s
     self.name
   end
-
-  def self.books_user_concurent
-    @books = user_signed_in? ? current_user.books : User.new.books
-    books
+  def sanitizer_name
+    self.name = self.name.strip
   end
 
+  def check_name
+    return if !((self.name).downcase=="global")
 
-  #protected
-
-  def not_repeated_by_user
-    return if Book.find_by(name:self.name,user:self.user).nil?
-    
-    errors.add  :name,  :invalid
+    errors.add(:base, I18n.t(:error_name_global))
+    throw(:abort)
   end
 
 end
