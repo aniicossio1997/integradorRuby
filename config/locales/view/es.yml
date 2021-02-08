@@ -37,4 +37,5 @@ es:
   all: Todo
   content_footer: "© 2021 Copyright"
   content_footer_2: "Desarrollado en Taller de Tecnologías de Producción de Software"
-  
+  title_app: Evebooks
+  body_logged_out: Tu organizador de notas
