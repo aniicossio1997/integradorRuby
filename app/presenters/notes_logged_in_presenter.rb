@@ -10,7 +10,7 @@ class NotesLoggedInPresenter
       @notes ||= filter.call
                        .paginate(
                           page: @params[:page],
-                          per_page: 4
+                          per_page: 6
                         )
     end
   

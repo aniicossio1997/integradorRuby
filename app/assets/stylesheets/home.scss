@@ -5,6 +5,12 @@
     -moz-user-select: none;
     user-select: none;
   }
+  .with_max{
+    width: 10rem;
+  }
+  .max_card{
+    width: 20em;
+  }
   
   @media (min-width: 768px) {
     .bd-placeholder-img-lg {

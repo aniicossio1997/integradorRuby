@@ -3,9 +3,9 @@ module ApplicationHelper
   def markdown(text)
     RedCarpet.new(text).to_html.html_safe
   end
-  def show_link(link_text, link_source, icon_text,color_btn="btn-success",option="")
+  def show_link(link_text, link_source, icon_text,color_btn="btn-success",option="",flex="d-flex flex-row bd-highlight")
     link_to("#{ link_text}#{content_tag :i, "#{icon_text}", class: 'large material-icons'}".html_safe,
-      link_source, class: "d-flex flex-row bd-highlight btn #{color_btn}", target:"#{option}")
+      link_source, class: "#{flex} btn #{color_btn}", target:"#{option}")
   end
 
   def date_create(object)

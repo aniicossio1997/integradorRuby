@@ -1,4 +1,6 @@
 es:
+  book: Cuaderno
+  clear: Vaciar
   delete: Eliminar
   user: usuario
   user_html: "<p> Usuario: <b>%{user}</b></p>"
@@ -6,10 +8,10 @@ es:
   total_books: "<p> Total de cuadernos: <b>%{user_count}</b></p>"
   total_notes: "<p> Total de notas: <b>%{user_count}</b></p>"
   show_all: Ver todo
-  find: buscar
+  find: Aplicar
   order_title: ordenar por titulo 
   back: Volver
-  message_confirmation: 'Esta seguro de eliminar %{models}'
+  message_confirmation: '¿ Esta seguro de eliminar %{models} ?'
   export_html: Descargar a html
   export_html_all: Descargar todo
   export_html_only_global: Descargar global

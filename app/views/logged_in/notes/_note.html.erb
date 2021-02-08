@@ -9,11 +9,9 @@
   </div>
   
   </td>
-  <td><%= date_create(note) %></td>
-  <td><%= date_update(note) %></td>
-
+  <td class="text-secondary"><%= date_create(note) %></td>
   <td>
-  <div class="d-flex flex-row bd-highlight">
+  <div class="d-flex flex-row">
   <div class="p-2 bd-highlight">
   <%= show_link(t(:show), logged_in_note_path(note,source:params[:source]), "visibility","btn-sm btn-outline-info") %>
   

@@ -1,13 +1,18 @@
-<h3>Name: <%= @book %></h3>
+<h3><%= t(:book)+": "+@book.name %></h3>
+<p class="text-secondary">
+<%= t(:date_create) +": "+ date_create(@book) %>
+</p>
+<p class="text-secondary">
+<%= t(:date_update) +": "+ date_update(@book) %>
+</p>
 <% if !@book.notes.empty? %>
-<%= link_to t(:delete_all), destroy_all_notes_logged_in_book_path(@book), method: :delete, data: { confirm: t(:message_confirmation, models: "todas las notas?") }, class:'btn btn-danger' %>
+<%= link_to t(:clear), destroy_all_notes_logged_in_book_path(@book), method: :delete, data: { confirm: t(:message_confirmation, models: "todas las notas?") }, class:'btn btn-danger' %>
 <br><br>
 <table class="table table-hover">
   <thead class="black white-text text-muted">
     <tr class="border-bottom-0">
     <th class="fw-lighter"><%= t(:name) %></th>
     <th class="fw-lighter"><%= t(:date_create)%></th>
-    <th class="fw-lighter"><%= t(:date_update)%></th>
 
     <th class="fw-lighter"><%= t(:options) %></th>
     </tr>
@@ -19,5 +24,6 @@
   </tbody>
 </table>
 <br><br>
-<%= link_to t(:back), logged_in_books_path, class:'btn btn-primary float-right' %>
 <% end %>
+<%= link_to t(:back), logged_in_books_path, class:'btn btn-primary' %>
+<br><br>

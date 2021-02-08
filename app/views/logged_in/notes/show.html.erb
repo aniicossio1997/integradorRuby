@@ -5,13 +5,14 @@
         <%= @note.title.upcase %>
     </div>
     <div class="card-body">
-        <b class="card-title text-secondary"><%= @note.book %></b>
         <p class="card-text"><%= @note.markdown_content.html_safe %></p>
         
     </div>
     <div class="card-footer text-muted text-center">
+        <p><b><%= t(:book) + ": " +@note.book.name %></b> </p>
         <p><%= t(:date_create) + ": "+ date_create(@note) %> </p>
         <p><%= t(:date_update) + ": " +date_update(@note) %> </p>
+
         <% if  !params[:source].nil? %>
         <a href="javascript: history.go(-1)" class="btn btn-primary float-right"><%= t(:back) %></a>
         <% else %>
