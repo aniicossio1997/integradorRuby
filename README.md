@@ -7,4 +7,4 @@
 - gem install bundler
 - bundle exec rake webpacker:install, si tiene algun problema con el webpacker
 - yarn add bootstrap jquery popper.js, se utilizo para añadir los estilos
-- [Para más información](https://github.com/aniicossio1997/integradorRuby/blob/master/Informe-entrega%20N%C2%B03.pdf)
+- [Maás información](https://github.com/aniicossio1997/integradorRuby/blob/master/Informe-entrega%20N%C2%B03.pdf)
