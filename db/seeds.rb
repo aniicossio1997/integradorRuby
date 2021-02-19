@@ -15,7 +15,7 @@ id_nota=1
    end
  end
  (1..4).each do |h|
-    Note.create(user:user,title:"nota-#{id_nota} global", content: "-sin cuaderno")
+    Note.create(user:user,title:"nota-#{id_nota} global", content: "- sin cuaderno")
     id_nota+=1
  end
     

@@ -16,6 +16,15 @@ class Note < ApplicationRecord
   def to_s
     title
   end
+  def name_book
+    if self.book.nil?
+      return "global"
+    else
+      self.book.name
+    end
+
+    
+  end
 
   def title_for_download
     name_book=(self.book.nil? ? 'global' : self.book.name)
